@@ -76,13 +76,20 @@ class EnergeticFluorescentPinkRat(QCAlgorithm):
                 self.Log(f"{self.Time} Entered Short Position at {current_price} on {self.DayTaken}")
             else:
                 pass
-                
             
-    
-    
             
-                    
-                                
+            def BullishDivergence(self, closeWindow, rsiWindow):
+        
+        self.rsiWindow = rsiWindow
+        self.closeWindow = closeWindow
+        lower_barrier = 30
+        upper_barrier = 70
+        
+        width = 10
+        
+        
+        
+       
 
     
                    
