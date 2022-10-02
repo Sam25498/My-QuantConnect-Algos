@@ -160,6 +160,11 @@ class EnergeticFluorescentPinkRat(QCAlgorithm):
             except IndexError:
                 pass
         
+          ''' 1. The width variable refers to the window which we’ll calculate the divergence on. For example, on the chart you may see a big divergence 
+    spanning over multiple bars (big width) and you can also see small divergence that happen fast over a few bars (small width).Enlarging the width 
+    will make the algorithm take into account those big ones. it's up to you to tweak it.  
+    
+    2. '''  
         
                 
             
