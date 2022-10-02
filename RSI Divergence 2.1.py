@@ -87,6 +87,92 @@ class EnergeticFluorescentPinkRat(QCAlgorithm):
         
         width = 10
         
+         #Bullish Divergence
+        for i in range(14):
+            try:
+                if self.rsiWindow[i] < lower_barrier:
+                    for a in range(i + 1, i + width):
+                        if self.rsiWindow[a] > lower_barrier:
+                            for r in range(a + 1, a + width):
+                                if self.rsiWindow[r] < lower_barrier and self.rsiWindow[r] > self.rsiWindow[i] and self.closeWindow[r] < self.closeWindow[i]:
+                                    
+                                    for s in range(r + 1, r + width):
+                                        if self.rsiWindow[s] > lower_barrier:
+                                            #self.SetHoldings(self.ticker, 1)
+                                            self.DivergenceBullish = True 
+                                            return self.DivergenceBullish
+                                            break
+                                        
+                                        else:
+                                            continue
+                                        
+                                else:
+                                    continue
+                                
+                        else:
+                            continue
+                        
+                else:
+                    continue
+                
+            except IndexError:
+                pass
+            
+            
+        
+    
+    def BearishDivergence(self, closeWindow, rsiWindow):
+        
+        self.rsiWindow = rsiWindow
+        self.closeWindow = closeWindow
+        lower_barrier = 30
+        upper_barrier = 70
+        
+        width = 10
+        #Bearish Divergence
+        for i in range(14):
+            try:
+                if self.rsiWindow[i] > upper_barrier:
+                    for a in range(i + 1, i + width):
+                        if self.rsiWindow[a] < upper_barrier:
+                            for r in range(a + 1, a + width):
+                                if self.rsiWindow[r] > upper_barrier and self.rsiWindow[r] < self.rsiWindow[i] and self.closeWindow[r] > self.closeWindow[i]:
+                                    
+                                    for s in range(r + 1 , r + width):
+                                        if self.rsiWindow[s] < upper_barrier:
+                                            self.DivergenceBearish = True
+                                            return self.DivergenceBearish
+    
+                                            break
+                                        
+                                        else:
+                                            continue
+                                        
+                                else:
+                                    continue
+                                
+                        else:
+                            continue
+                        
+                else:
+                    continue
+                
+            except IndexError:
+                pass
+        
+        
+                
+            
+  
+    
+                
+            
+    
+    
+            
+                    
+                                
+        
         
         
        
