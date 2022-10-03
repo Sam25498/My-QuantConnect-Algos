@@ -125,11 +125,26 @@ class SymbolData:
         self.macd = MovingAverageConvergenceDivergence(12,26,9)
         self.ema = ExponentialMovingAverage(200)
         self.psar = ParabolicStopAndReverse(0.02, 0.02, 0.2)
-        
 
         
-  
-                    
-
-
-
+        self.macdWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.macd, timedelta(minutes=30))
+        self.macd.Updated += self.MacdUpdated                    #Updating those two values
+        
+        self.emaWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the EMA indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.ema, timedelta(minutes=30))
+        self.ema.Updated += self.EmaUpdated                    #Updating those two values
+        
+        self.closeWindow = RollingWindow[float](30)
+        
+        # Add consolidator to track rolling close prices
+        self.consolidator = QuoteBarConsolidator(30)
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
+        self.psarWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the PSAR indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.psar, timedelta(minutes=30))
+        self.psar.Updated += self.PsarUpdated 
+       
+        
+    
