@@ -145,6 +145,37 @@ class SymbolData:
         self.psarWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the PSAR indicator, takes two values
         algorithm.RegisterIndicator(symbol, self.psar, timedelta(minutes=30))
         self.psar.Updated += self.PsarUpdated 
-       
         
+       
+def MacdUpdated(self, sender, updated):
+        '''Event holder to update the MACD Rolling Window values'''
+        if self.macd.IsReady:
+            self.macdWindow.Add(updated)
+
+    def EmaUpdated(self, sender, updated):
+        '''Event holder to update the EMA Rolling Window values'''
+        if self.ema.IsReady:
+            self.emaWindow.Add(updated)
+            
+    def PsarUpdated(self, sender, updated):
+        '''Event holder to update the PSAR Rolling Window values'''
+        if self.psar.IsReady:
+            self.psarWindow.Add(updated)
+            
+    def CloseUpdated(self, sender, bar):
+        '''Event holder to update the close Rolling Window values'''
+        self.closeWindow.Add(bar.Close)
+            
+       
+    @property 
+    def IsReady(self):
+        return self.macd.IsReady and self.ema.IsReady and self.psar.IsReady and self.closeWindow.IsReady   
+        
+        
+  
+                    
+
+
+
+       
     
