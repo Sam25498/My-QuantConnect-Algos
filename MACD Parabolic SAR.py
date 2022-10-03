@@ -119,6 +119,16 @@ class CasualYellowDolphin(QCAlgorithm):
                     self.isLong = False
                     self.Log(f"{self.Time} Entered Short Position at {current_price}")
                     
+   
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.macd = MovingAverageConvergenceDivergence(12,26,9)
+        self.ema = ExponentialMovingAverage(200)
+        self.psar = ParabolicStopAndReverse(0.02, 0.02, 0.2)
+        
+
+        
+  
                     
 
 
