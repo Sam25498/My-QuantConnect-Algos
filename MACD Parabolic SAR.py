@@ -91,3 +91,35 @@ class CasualYellowDolphin(QCAlgorithm):
                         #self.Liquidate(symbol)
                         #self.Log(f"{self.Time} Short Position exited due to Direction Change {current_price}")
             
+            
+            
+            if not self.Portfolio[symbol].Invested:
+                
+            
+                MacdLong = signalDeltaPercent > self.tolerance
+                EmaLong = current_price > EMA 
+                EmaShort = current_price < EMA
+                PSARLong = PSAR < current_price 
+                PSARShort = PSAR > current_price
+               
+                
+                if EmaLong and Macdlong and PSARLong:
+                    self.SetHoldings(symbol, 1)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if EmaShort and not Macdlong and PSARShort:
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                    
+                    
+
+
+
