@@ -33,6 +33,15 @@ class CalmRedOrangeAlligator(QCAlgorithm):
         self.SetWarmUp(50, Resolution.Hour)
         
 
+    def OnData(self, data):
+        
+        if self.IsWarmingUp: #Data to warm up the algo is being collected.
+            return
+        
+        for symbol, symbolData in self.Data.items(): #Return the dictionary's key-value pairs:
+            if not (data.ContainsKey(symbol) and data[symbol] is not None and symbolData.IsReady):
+                continue
+            
 
 
   
