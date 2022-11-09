@@ -63,6 +63,35 @@ class CalmRedOrangeAlligator(QCAlgorithm):
                     if condStopLoss:
                         self.Liquidate(symbol)
                         self.Log(f"{self.Time} Short Position Stop Loss at {current_price}")
+                        
+            if not self.Portfolio[symbol].Invested:
+                FastisOverSlow = fastEMA > slowEMA * self.tolerance
+                SlowisOverFast = slowEMA > fastEMA * self.tolerance
+                FastisBelowSlow = previousfastma < previouslowma #* self.tolerance
+                SlowisBelowFast = previouslowma  > previousfastma #* self.tolerance
+                
+                
+                if FastisOverSlow and FastisBelowSlow:
+                    self.SetHoldings(symbol, 1)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if SlowisOverFast and SlowisBelowFast: 
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                        
+                    
+
+
+  
+     
             
             
             
