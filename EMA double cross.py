@@ -111,6 +111,17 @@ class SymbolData:
         '''Event holder to update the MACD Rolling Window values.'''
         if self.slowema.IsReady:
             self.slowWindow.Add(updated)
+    def FastEMAUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.fastema.IsReady:
+            self.fastWindow.Add(updated)
+        
+    def CloseUpdated(self, sender, bar):
+        '''Event holder to update the close Rolling Window values'''
+        self.closeWindow.Add(bar.Close)
+  
+              
+                    
 
 
 
