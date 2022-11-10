@@ -37,6 +37,14 @@ class HyperActiveMagentaBat(QCAlgorithm):
             #    self.SetHoldings(symbol, 1)       #
             #    self.buyInPrice = current_price   #
             ########################################
+            self.SetHoldings(symbol, 1)
+            self.isLong = True
+            
+        if self.Portfolio.Invested:
+            ATR = self.atr.Current.Value
+            current_price = data[symbol].Close
+   
+                
 
         
 
