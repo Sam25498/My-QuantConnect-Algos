@@ -50,6 +50,8 @@ class HyperActiveMagentaBat(QCAlgorithm):
                     maxpositionprofit = self.Portfolio[symbol].UnrealizedProfit
                     
 
+                    
+
                 
 
         
