@@ -56,6 +56,11 @@ class HyperActiveMagentaBat(QCAlgorithm):
             else:
                 openpositionprofit = self.Portfolio[symbol].UnrealizedProfit
                 CondStopProfit  = (self.sellInPrice - current_price)/self.sellInPrice > self.StopProfit
+                if CondStopProfit:
+                    maxpositionprofit = self.Portfolio[symbol].UnrealizedProfit
+                    
+
+                                         
 
                     
 
