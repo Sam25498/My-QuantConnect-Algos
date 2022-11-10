@@ -9,3 +9,11 @@ class HyperActiveMagentaBat(QCAlgorithm):
         self.SetCash(100000)  # Set Strategy Cash
         self.symbol = self.AddForex("EURUSD", Resolution.Hour , Market.Oanda).Symbol
         
+        self.xATR = 3
+        self.atr = self.ATR("EURUSD", 15, Resolution.Hour) 
+        self.StopProfit = 0.01
+        self.BigPointValue = 100000
+
+        self.SetWarmUp(30) 
+        
+
