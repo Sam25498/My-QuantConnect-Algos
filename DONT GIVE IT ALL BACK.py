@@ -23,7 +23,20 @@ class HyperActiveMagentaBat(QCAlgorithm):
         '''
         if self.IsWarmingUp:
             return
+        if not self.atr.IsReady:
+            return
         
-    
+        symbol = self.symbol
+        current_price = data[symbol].Close
+        
+        if not self.Portfolio.Invested:
+            
+            
+            ########################################
+            #         Your Entry Strategy          #
+            #    self.SetHoldings(symbol, 1)       #
+            #    self.buyInPrice = current_price   #
+            ########################################
+
         
 
