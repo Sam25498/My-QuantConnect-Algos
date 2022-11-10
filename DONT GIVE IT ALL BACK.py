@@ -59,6 +59,9 @@ class HyperActiveMagentaBat(QCAlgorithm):
                 if CondStopProfit:
                     maxpositionprofit = self.Portfolio[symbol].UnrealizedProfit
                     
+                    if (maxpositionprofit - openpositionprofit) > (self.xATR * ATR * self.BigPointValue):
+                        self.Liquidate(symbol)
+                                        
 
                                          
 
