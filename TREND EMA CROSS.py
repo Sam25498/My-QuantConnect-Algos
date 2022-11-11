@@ -87,6 +87,17 @@ class CryingRedLemur(QCAlgorithm):
               
                 
                 if PriceisOverSlow: #and PEMAOverPreviousP:
+                    self.SetHoldings(symbol, 1)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if SlowisOverPrice: # and PreviousPOverPEMA: 
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                  
                       
             
               
