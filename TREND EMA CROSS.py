@@ -46,7 +46,18 @@ class CryingRedLemur(QCAlgorithm):
             slowEMA = symbolData.slowema.Current.Value
             
             self.Log(f"{symbolData.slowWindow[0]} ema values ")
-         
+            #sWindow = symbolData.slowWindow
+            #previousEMA = symbolData.slowWindow[1]
+    
+            current_price = symbolData.closeWindow[0] 
+            #previous_price = symbolData.closeWindow[1]
+            
+            
+
+            if self.Portfolio[symbol].Invested:
+                
+                if self.isLong:
+        
            
         
 
