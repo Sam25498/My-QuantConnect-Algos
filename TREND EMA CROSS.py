@@ -97,6 +97,27 @@ class CryingRedLemur(QCAlgorithm):
                 if SlowisOverPrice: # and PreviousPOverPEMA: 
                     self.SetHoldings(symbol, -1)
                     # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                        
+                    
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.slowema= ExponentialMovingAverage(200)
+        
+        self.slowWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.slowema, timedelta(hours=1))
+        self.slowema.Updated += self.SlowEMAUpdated                    #Updating those two values
+        
+        self.closeWindow = RollingWindow[float](10)
+        
+        # Add consolidator to track rolling close prices
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+                     
                   
                       
             
