@@ -17,4 +17,15 @@ class CryingRedLemur(QCAlgorithm):
         
         self.ticker = "USDCHF" #"USDJPY","GBPUSD",  "USDCAD","EURUSD".
         # Rolling Windows to hold bar close data keyed by symbol
+        self.Data = {}
+
+        #for self.ticker in self.tickers:
+        symbol = self.AddForex(self.ticker , Resolution.Hour, Market.Oanda).Symbol
+        self.Data[symbol] = SymbolData(self, symbol)
+         
+    
+        self.tolerance = 1.001
+     
+        self.stopLossLevel = -0.05 # stop loss percentage 
+
 
