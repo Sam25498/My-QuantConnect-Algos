@@ -27,5 +27,16 @@ class CryingRedLemur(QCAlgorithm):
         self.tolerance = 1.001
      
         self.stopLossLevel = -0.05 # stop loss percentage 
+        self.stopProfitLevel = 0.01# stop profit percentage
+        
+            
+        self.SetWarmUp(200, Resolution.Hour)
+        
+
+
+    def OnData(self, data):
+        
+        if self.IsWarmingUp: #Data to warm up the algo is being collected.
+        
 
 
