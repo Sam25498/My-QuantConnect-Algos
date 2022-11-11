@@ -37,6 +37,17 @@ class CryingRedLemur(QCAlgorithm):
     def OnData(self, data):
         
         if self.IsWarmingUp: #Data to warm up the algo is being collected.
+            return
+        
+        for symbol, symbolData in self.Data.items(): #Return the dictionary's key-value pairs:
+            if not (data.ContainsKey(symbol) and data[symbol] is not None and symbolData.IsReady):
+                continue
+            
+            slowEMA = symbolData.slowema.Current.Value
+            
+            self.Log(f"{symbolData.slowWindow[0]} ema values ")
+         
+           
         
 
 
