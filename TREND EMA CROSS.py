@@ -77,6 +77,18 @@ class CryingRedLemur(QCAlgorithm):
                         self.Liquidate(symbol)
                         self.Log(f"{self.Time} Short Position Stop Loss at {current_price}")
             
+            
+            if not self.Portfolio[symbol].Invested:
+                PriceisOverSlow = current_price - slowEMA * self.tolerance
+                SlowisOverPrice = slowEMA > current_price * self.tolerance
+                #PreviousPOverPEMA = previous_price > previousEMA * self.tolerance
+                #PEMAOverPreviousP = previousEMA > previous_price * self.tolerance 
+                
+              
+                
+                if PriceisOverSlow: #and PEMAOverPreviousP:
+                      
+            
               
          
            
