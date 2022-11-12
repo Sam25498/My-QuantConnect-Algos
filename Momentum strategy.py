@@ -57,4 +57,24 @@ class CreativeYellowTapir(QCAlgorithm):
             
            
             #Filtering through the list of supports to be able to get the next support level.
+            supports = sorted(supports, key= lambda x:x < current_price, reverse = True)
+            
+            #Filtering through the list of resistances to be able to get the next resistance level.
+            resistances = sorted(resistances, key= lambda x:x > current_price, reverse = False)
+            
+            #self.Log(f"Symbol: {symbol.Value} , Supports: {supports} , Resistances: {resistances}")
+            
+            #Getting the next support level
+            nextSupportLevel = supports[0]
+            
+            #Getting the next support level
+            nextResistanceLevel = resistances[0]
+            
+            #if price is close to a support or resistance print or log  that resistance as well as that price
+            self.Log(f"Symbol: {symbol.Value} , nextSupportLevel: {nextSupportLevel} , nextResistanceLevel: {nextResistanceLevel} ,current price:{current_price}")
+            
+            
+            if self.Portfolio[symbol].Invested:
+                
+                if self.isLong:
 
