@@ -147,7 +147,27 @@ class CreativeYellowTapir(QCAlgorithm):
                 level = max(commonLevel)
                 if level not in resistances:
                     resistances.append(level)
-  
+          
+        return resistances
+                    
+                    
+    def NextSupport(self, window, variation = 0.005, h = 3): 
+        
+        series = window
+        supports = []
+       
+        minima = []
+        
+        # finding maxima and minima by looking for hills/troughs locally..........
+        for i in range(h, series.Size-h):
+            if series[i] < series[i-1] and series[i] < series[i+1] and series[i+1] < series[i+2] and series[i-1] < series[i-2]:
+                minima.append(series[i])
+        
+        # identify minima which are supports
+        for l in minima:
+            r = l * variation
+            # minima which are near each other
+
                          
              
                 
