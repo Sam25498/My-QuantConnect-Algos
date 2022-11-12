@@ -167,6 +167,27 @@ class CreativeYellowTapir(QCAlgorithm):
         for l in minima:
             r = l * variation
             # minima which are near each other
+            commonLevel = [x for x in minima if x > l - r and x < l + r]
+            # if 2 or more minima are clustered near an area, it is a support.
+            if len(commonLevel) > 1:
+                # We pick the lowest minima of the cluster as our support
+                level = min(commonLevel)
+                if level not in supports:
+                    supports.append(level)
+                    
+        return supports
+                        
+                    
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.macd = MovingAverageConvergenceDivergence(12,26,9)
+        self.rsi = RelativeStrengthIndex(14)
+        
+        self.macdWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.macd, timedelta(hours=4))
+        self.macd.Updated += self.MacdUpdated                    #Updating those two values
+        
+           
 
                          
              
