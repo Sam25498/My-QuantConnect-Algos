@@ -96,6 +96,27 @@ class CreativeYellowTapir(QCAlgorithm):
                     if condStopLoss:
                         self.Liquidate(symbol)
                         self.Log(f"{self.Time} Short Position Stop Loss at {current_price}")
+                        
             
+            
+            if not self.Portfolio[symbol].Invested:
+                
+            
+                MacdLong = signalDeltaPercent > self.tolerance
+                AboveSupport = current_price > nextSupportLevel * self.toleranceS
+                BelowResistance = current_price < nextResistanceLevel * self.toleranceR
+                #tolerance = will be dependent on the minimum number of pips before a r/s level
+                
+                if RSI > 50 and Macdlong and BelowResistance:
+                    self.SetHoldings(symbol, 1)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if RSI < 50  and not Macdlong and AboveSupport: 
+                    self.SetHoldings(symbol, -1)
+             
                 
 
