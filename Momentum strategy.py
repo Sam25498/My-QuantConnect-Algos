@@ -205,7 +205,28 @@ class SymbolData:
         self.consolidator.DataConsolidated += self.HighUpdated
         algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
 
+    def MacdUpdated(self, sender, updated):
+        '''Event holder to update the MACD Rolling Window values'''
+        if self.macd.IsReady:
+            self.macdWindow.Add(updated)
+
+    def RsiUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.rsi.IsReady:
+            self.rsiWindow.Add(updated)
+            
+    def LowUpdated(self, sender, bar):
+        '''Event holder to update the low Rolling Window values'''
+        self.lowWindow.Add(bar.Low)
         
+    def HighUpdated(self, sender, bar):
+        '''Event holder to update the high Rolling Window values'''
+        self.highWindow.Add(bar.High)
+       
+    @property 
+    def IsReady(self):
+        return self.macd.IsReady and self.rsi.IsReady and self.lowWindow.IsReady and self.highWindow.IsReady      
+              
 
        
            
