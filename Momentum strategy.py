@@ -28,4 +28,33 @@ class CreativeYellowTapir(QCAlgorithm):
         self.toleranceS = 1.004000555
         self.stopLossLevel = -0.05 # stop loss percentage 
         self.stopProfitLevel = 0.01# stop profit percentage
+            
+        self.SetWarmUp(400, Resolution.Hour)
+        
+        
+    def OnData(self, data):
+        
+        #if self.IsWarmingUp: #Data to warm up the algo is being collected.
+           # return
+        
+        for symbol, symbolData in self.Data.items(): #Return the dictionary's key-value pairs:
+            if not (data.ContainsKey(symbol) and data[symbol] is not None and symbolData.IsReady):
+                continue
+            
+            if self.IsWarmingUp or not all([symbolData.IsReady for symbolData in self.Data.values()]):
+                return
+            
+            MACD = symbolData.macd.Current.Value
+            MACDfast = symbolData.macd.Fast.Current.Value
+            RSI = symbolData.rsi.Current.Value
+            current_price = data[symbol].Close#symbolData.closeWindow[0] #
+            
+            signalDeltaPercent = (MACD - MACD)/MACDfast
+            
+            supports = self.NextSupport(symbolData.lowWindow)
+            resistances = self.NextResistance(symbolData.highWindow)
+            #self.Log(f"Symbol: {symbol.Value} , Supports: {supports} , Resistances: {resistances}")
+            
+           
+            #Filtering through the list of supports to be able to get the next support level.
 
