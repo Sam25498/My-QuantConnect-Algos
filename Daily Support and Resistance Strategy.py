@@ -197,4 +197,32 @@ class SymbolData:
         self.rsi = RelativeStrengthIndex(14)
         
         self.macdWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.macd, timedelta(days=1))
+        self.macd.Updated += self.MacdUpdated                    #Updating those two values
+        
+        self.rsiWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the slow SMA indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.rsi, timedelta(days=1))
+        self.rsi.Updated += self.RsiUpdated                    #Updating those two values
+        
+        #self.closeWindow = RollingWindow[float](200)
+        self.lowWindow = RollingWindow[float](100)
+        self.highWindow = RollingWindow[float](100)
+        #self.lowWindowD = RollingWindow[float](40)
+        #self.highWindowD = RollingWindow[float](40)
+        
+        #Add consolidator to track rolling low prices..
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.LowUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
+        
+        
+        #Add consolidator to track rolling high prices
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.HighUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
+        
+
+
               
