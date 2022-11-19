@@ -38,3 +38,23 @@ class CreativeYellowTapir(QCAlgorithm):
     #def MarketClose(self):
         #self.SupportResistance.Reset()
     def CloseTo(self, x, y, delta):
+        return abs(x-y) < delta
+    
+
+    def OnData(self, data):
+        
+        #if self.IsWarmingUp: #Data to warm up the algo is being collected.
+           # return
+        
+        for symbol, symbolData in self.Data.items(): #Return the dictionary's key-value pairs:
+            if not (data.ContainsKey(symbol) and data[symbol] is not None and symbolData.IsReady):
+                continue
+            
+            if self.IsWarmingUp or not all([symbolData.IsReady for symbolData in self.Data.values()]):
+                return
+            
+            MACD = symbolData.macd.Current.Value
+            MACDfast = symbolData.macd.Fast.Current.Value
+            RSI = symbolData.rsi.Current.Value
+            current_price = symbolData.closeWindow[0] #data[symbol].Close
+            
