@@ -137,4 +137,25 @@ class CreativeYellowTapir(QCAlgorithm):
         series = window
         supports = []
         resistances = []
-                   
+        
+        maxima = []
+        minima = []
+        
+        # finding maxima and minima by looking for hills/troughs locally
+        for i in range(h, series.Size-h):
+            if series[i] > series[i-1] and series[i] > series[i+1]  and series[i+1] > series[i+2] and series[i-1] > series[i-2] :
+                maxima.append(series[i])
+            elif series[i] < series[i-1] and series[i] < series[i+1] and series[i+1] < series[i+2] and series[i-1] < series[i-2]:
+                minima.append(series[i])
+       
+        # identifying maximas which are resistances
+        for m in maxima:
+            r = m * variation
+            # maxima which are near each other
+            commonLevel = [x for x in maxima if x > m - r and x < m + r]
+            # if 2 or more maxima are clustered near an area, it is a resistance
+            if len(commonLevel) > 1:
+                # we pick the highest maxima if the cluster as our resistance
+                level = max(commonLevel)
+  
+                     
