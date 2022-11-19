@@ -175,7 +175,29 @@ class CreativeYellowTapir(QCAlgorithm):
                     
         
         return supports, resistances #nextSupportLevel, nextResistanceLevel
-                        
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.macd = MovingAverageConvergenceDivergence(12,26,9)
+        self.rsi = RelativeStrengthIndex(14)
+        
+        self.macdWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.macd, timedelta(hours=4))
+        self.macd.Updated += self.MacdUpdated                    #Updating those two values
+        
+        self.rsiWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the slow SMA indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.rsi, timedelta(hours=4))
+        self.rsi.Updated += self.RsiUpdated                    #Updating those two values
+        
+        self.closeWindow = RollingWindow[float](200)
+        
+        # Add consolidator to track rolling close prices
+        self.consolidator = QuoteBarConsolidator(4)
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
+
+    def MacdUpdated(self, sender, updated):
+                       
                     
 
                      
