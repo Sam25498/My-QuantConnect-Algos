@@ -77,3 +77,23 @@ class CreativeYellowTapir(QCAlgorithm):
             #nextResistanceLevel = [y for y in resistances if self.CloseTo(current_price,y,0.00026)]
             self.Log(f"Symbol: {symbol.Value} , nextSupportLevel: {nextSupportLevel} , nextResistanceLevel: {nextResistanceLevel} ,current price:{current_price}")
             
+        #if price is close to a support or resistance print or log  that resistance as well as that price
+            
+            
+            if self.Portfolio[symbol].Invested:
+                
+                if self.isLong:
+                    condStopProfit = (current_price - self.buyInPrice)/self.buyInPrice > self.stopProfitLevel
+                    condStopLoss = (current_price - self.buyInPrice)/self.buyInPrice < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Profit at {current_price}")
+                        
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Loss at {current_price}")
+                else:
+                    condStopProfit = (self.sellInPrice - current_price)/self.sellInPrice > self.stopProfitLevel
+                    condStopLoss = (self.sellInPrice - current_price)/self.sellInPrice < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
