@@ -175,6 +175,7 @@ class CreativeYellowTapir(QCAlgorithm):
                     
         
         return supports, resistances #nextSupportLevel, nextResistanceLevel
+    
 class SymbolData:
     def __init__(self, algorithm, symbol):
         self.macd = MovingAverageConvergenceDivergence(12,26,9)
@@ -197,6 +198,24 @@ class SymbolData:
         
 
     def MacdUpdated(self, sender, updated):
+        '''Event holder to update the MACD Rolling Window values'''
+        if self.macd.IsReady:
+            self.macdWindow.Add(updated)
+
+    def RsiUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.rsi.IsReady:
+            self.rsiWindow.Add(updated)
+            
+            
+    def CloseUpdated(self, sender, bar):
+        '''Event holder to update the close Rolling Window values'''
+        self.closeWindow.Add(bar.Close)
+       
+    @property 
+    def IsReady(self):
+        return self.macd.IsReady and self.rsi.IsReady and self.closeWindow.IsReady     
+       
                        
                     
 
