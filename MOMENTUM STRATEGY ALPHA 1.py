@@ -18,3 +18,23 @@ class CreativeYellowTapir(QCAlgorithm):
         
         self.ticker = "USDCAD"
         # Rolling Windows to hold bar close data keyed by symbol
+        self.Data = {}
+
+        #for ticker in tickers:
+        symbol = self.AddForex(self.ticker, Resolution.Hour, Market.Oanda).Symbol
+        self.Data[symbol] = SymbolData(self, symbol)
+         
+      
+        self.tolerance = 0.0025
+        self.toleranceR = 0.986761994
+        self.toleranceS = 1.004000555
+        self.stopLossLevel = -0.05 # stop loss percentage 
+        self.stopProfitLevel = 0.01# stop profit percentage
+        
+            
+        self.SetWarmUp(400, Resolution.Hour)
+        
+        
+    #def MarketClose(self):
+        #self.SupportResistance.Reset()
+    def CloseTo(self, x, y, delta):
