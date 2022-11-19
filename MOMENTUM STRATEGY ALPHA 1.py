@@ -58,3 +58,22 @@ class CreativeYellowTapir(QCAlgorithm):
             RSI = symbolData.rsi.Current.Value
             current_price = symbolData.closeWindow[0] #data[symbol].Close
             
+            signalDeltaPercent = (MACD - MACD)/MACDfast
+            
+            supports, resistances = self.NextSupportResistance(symbolData.closeWindow)
+            #self.Log(f"Symbol: {symbol.Value} , Supports: {supports} , Resistances: {resistances}")
+            
+            #Getting the next support level
+            if not len(supports) > 1 and not len(resistances) > 1:
+                return
+            
+            supports = sorted(supports, key= lambda x:x < current_price, reverse = True)
+            resistances = sorted(resistances, key= lambda x:x > current_price, reverse = False)
+            self.Log(f"Symbol: {symbol.Value} , Supports: {supports} , Resistances: {resistances}")#12
+            
+            nextSupportLevel = supports[0]
+            nextResistanceLevel = resistances[0]
+            #nextSupportLevel = [x for x in supports if self.CloseTo(current_price,x,0.00026)]
+            #nextResistanceLevel = [y for y in resistances if self.CloseTo(current_price,y,0.00026)]
+            self.Log(f"Symbol: {symbol.Value} , nextSupportLevel: {nextSupportLevel} , nextResistanceLevel: {nextResistanceLevel} ,current price:{current_price}")
+            
