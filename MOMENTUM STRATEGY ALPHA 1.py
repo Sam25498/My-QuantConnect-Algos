@@ -117,3 +117,24 @@ class CreativeYellowTapir(QCAlgorithm):
                     self.SetHoldings(symbol, 1)
                     # get buy-in price for trailing stop loss/profit
                     self.buyInPrice = current_price
+
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if RSI < 50  and not Macdlong and AboveSupport: 
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                    
+                    
+    def NextSupportResistance(self, window, variation = 0.005, h = 3):
+        
+        #price = self.Securities[self.ticker].Close 1
+        series = window
+        supports = []
+        resistances = []
+                   
