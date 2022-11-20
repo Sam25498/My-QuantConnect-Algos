@@ -68,4 +68,14 @@ class DancingYellowGreenAlpaca(QCAlgorithm):
                 minima.append(series[i])
        
 
-        return supports, resistances          
+        return supports, resistances    
+            # identifying maximas which are resistances
+        for m in maxima:
+            r = m * variation
+            # maxima which are near each other
+            commonLevel = [x for x in maxima if x > m - r and x < m + r]
+            # if 2 or more maxima are clustered near an area, it is a resistance
+            if len(commonLevel) > 1:
+                # we pick the highest maxima if the cluster as our resistance
+                level = max(commonLevel)
+    
