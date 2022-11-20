@@ -38,4 +38,23 @@ class DancingYellowGreenAlpaca(QCAlgorithm):
             self.Plot('SMA', symbol.Value, sma.Current.Value)
         
         for symbol, window in self.closingData.items():
+            supports, resistances = self.GetPriceLevels(window)
+            
+            less_than_price = [x for x in supports if x < current_price ]
+            nextSupportLevel = less_than_price[min(range(len(less_than_price)), key=lambda i: abs(less_than_price[i] - current_price))]
+            
+            self.Log(f"Symbol: {symbol.Value} , Supports: {supports} , Resistances: {resistances}")
+            #self.Debug(self.SMA45.Current.Value)
+
+            AboveSupport = current_price > nextSupportLevel * self.tolerance
+            if self.SMA45[symbol].Current.Value<0 and AboveSupport :
+                self.marketTicket=self.MarketOrder(symbol, -100000)
+    
+    def GetPriceLevels(self, series, variation = 0.005, h = 3):
+        
+        supports = []
+        resistances = []
+        
+        maxima = []
+        
    
