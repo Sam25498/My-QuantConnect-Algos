@@ -29,3 +29,13 @@ class DancingYellowGreenAlpaca(QCAlgorithm):
                 window.Add(data[symbol].Close)
                 
       
+        current_price = data[symbol].Close
+        
+        if self.IsWarmingUp or not all([window.IsReady for window in self.closingData.values()]):
+            return
+        
+        for symbol, sma in self.SMA45.items():
+            self.Plot('SMA', symbol.Value, sma.Current.Value)
+        
+        for symbol, window in self.closingData.items():
+   
