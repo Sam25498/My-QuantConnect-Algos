@@ -57,4 +57,9 @@ class DancingYellowGreenAlpaca(QCAlgorithm):
         
         maxima = []
         
-   
+        minima = []
+        
+        # finding maxima and minima by looking for hills/troughs locally
+        for i in range(h, series.Size-h):
+            if series[i] > series[i-h] and series[i] > series[i+h]:
+
