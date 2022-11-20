@@ -15,3 +15,17 @@ class DancingYellowGreenAlpaca(QCAlgorithm):
         self.closingData = {}
         self.SMA45 = {}
         for ticker in tickers:
+            symbol = self.AddForex(ticker, Resolution.Hour, Market.Oanda).Symbol
+            self.closingData[symbol] = RollingWindow[float](50)
+        # Warm up our rolling windows
+            self.SMA45[symbol] = self.SMA(symbol, 45, Resolution.Hour) 
+        self.tolerance = 1.004000555
+        self.SetWarmUp(50)
+        
+    def OnData(self, data):
+        
+        for symbol, window in self.closingData.items():
+            if data.ContainsKey(symbol) and data[symbol] is not None:
+                window.Add(data[symbol].Close)
+                
+      
