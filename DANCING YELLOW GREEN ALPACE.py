@@ -79,3 +79,19 @@ class DancingYellowGreenAlpaca(QCAlgorithm):
                 # we pick the highest maxima if the cluster as our resistance
                 level = max(commonLevel)
     
+                if level not in resistances:
+                    resistances.append(level)
+        
+        # identify minima which are supports
+        for l in minima:
+            r = l * variation
+            # minima which are near each other
+            commonLevel = [x for x in minima if x > l - r and x < l + r]
+            # if 2 or more minima are clustered near an area, it is a support
+            if len(commonLevel) > 1:
+                # We pick the lowest minima of the cluster as our support
+                level = min(commonLevel)
+                if level not in supports:
+                    supports.append(level)
+            
+    
