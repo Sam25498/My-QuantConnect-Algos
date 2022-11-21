@@ -97,4 +97,21 @@ class MeasuredApricot(QCAlgorithm):
                     # entered long position
                     self.isLong = True
                     self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                    
+                        
+                if RSI < 50  and not Macdlong: #Above Support: 
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                        
+                    
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.macd = MovingAverageConvergenceDivergence(12,26,9)
+        self.rsi = RelativeStrengthIndex(14)
+        
+                      
      
