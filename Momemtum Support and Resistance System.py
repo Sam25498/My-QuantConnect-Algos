@@ -30,4 +30,38 @@ class MeasuredApricot(QCAlgorithm):
             
         self.SetWarmUp(50, Resolution.Hour)
         
+    def MarketClose(self):
+        self.SupportResistance.Reset()
+
+
+    def OnData(self, data):
+        
+        if self.IsWarmingUp: #Data to warm up the algo is being collected.
+            return
+        
+        for symbol, symbolData in self.Data.items(): #Return the dictionary's key-value pairs:
+            if not (data.ContainsKey(symbol) and data[symbol] is not None and symbolData.IsReady):
+                continue
+            
+            MACD = symbolData.macd.Current.Value
+            MACDfast = symbolData.macd.Fast.Current.Value
+            RSI = symbolData.rsi.Current.Value
+            current_price = data[symbol].Close
+            
+            signalDeltaPercent = (MACD - MACD)/MACDfast
+            #nextSupportZone =
+            #nextResistanceZone = 
+            support = self.SupportResistance.NextSupport()
+            resistance = self.SupportResistance.NextResistance()
+            
+
+            if self.Portfolio[symbol].Invested:
+                
+                if self.isLong:
+                    condStopProfit = (current_price - self.buyInPrice)/self.buyInPrice > self.stopProfitLevel
+                    condStopLoss = (current_price - self.buyInPrice)/self.buyInPrice < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+    
+        
         
