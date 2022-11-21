@@ -89,4 +89,12 @@ class MeasuredApricot(QCAlgorithm):
                 # tolerance = will be dependent on the minimum number of pips before a r/s level
      
               
-        
+                
+                if RSI > 50 and Macdlong: #Below Resistance:
+                    self.SetHoldings(symbol, 1)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+     
