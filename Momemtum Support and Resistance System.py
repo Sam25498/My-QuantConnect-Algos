@@ -113,5 +113,6 @@ class SymbolData:
         self.macd = MovingAverageConvergenceDivergence(12,26,9)
         self.rsi = RelativeStrengthIndex(14)
         
+      
                       
      
