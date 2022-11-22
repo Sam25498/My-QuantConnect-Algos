@@ -13,3 +13,6 @@ class PermanentPortfolio(QCAlgorithm):
         self.SetCash(100000)  
         self.assets = [self.AddEquity(ticker, Resolution.Hour).Symbol for ticker in ASSETS]
 
+        self.Schedule.On(self.DateRules.MonthStart('SPY'), self.TimeRules.AfterMarketOpen('SPY', 150), 
+            self.Rebalance)
+      
