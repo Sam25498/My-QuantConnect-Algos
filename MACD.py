@@ -11,3 +11,5 @@ class PermanentPortfolio(QCAlgorithm):
         self.SetStartDate(2008, 1, 1)               
         self.SetEndDate(2021, 4, 10)
         self.SetCash(100000)  
+        self.assets = [self.AddEquity(ticker, Resolution.Hour).Symbol for ticker in ASSETS]
+
