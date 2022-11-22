@@ -19,3 +19,5 @@ class PermanentPortfolio(QCAlgorithm):
     def Rebalance(self):
         if self.Time.month not in MONTHES: return
             
+        date = self.Time.strftime("%A %d. %B %Y")
+        self.Debug(f"Execute trade at Date: {date}")
