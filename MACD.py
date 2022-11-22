@@ -16,3 +16,6 @@ class PermanentPortfolio(QCAlgorithm):
         self.Schedule.On(self.DateRules.MonthStart('SPY'), self.TimeRules.AfterMarketOpen('SPY', 150), 
             self.Rebalance)
       
+    def Rebalance(self):
+        if self.Time.month not in MONTHES: return
+            
