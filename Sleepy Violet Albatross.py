@@ -12,3 +12,15 @@ class FocusedYellowLemur(QCAlgorithm):
        
         self.Data = {}
 
+        for ticker in ["TSLA","AAPL"]:
+            symbol = self.AddEquity(ticker, Resolution.Hour, Market.USA).Symbol
+            self.Data[symbol] = SymbolData(self, symbol)
+            
+            
+            
+        self.stopLossLevel = -0.05 # stop loss percentage 
+        self.stopProfitLevel = 0.01# stop profit percentage
+            
+        self.SetWarmUp(100, Resolution.Hour)
+
+
