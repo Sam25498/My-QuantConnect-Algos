@@ -61,3 +61,16 @@ class FocusedYellowLemur(QCAlgorithm):
                         self.Log(f"{self.Time} Short Position Stop Profit at {current_price}")
                         
     
+            
+            if not self.Portfolio[symbol].Invested:
+                
+                
+                if rsi < 15:
+                    self.SetHoldings(symbol, 1)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    #Timebought = self.Time
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+     
