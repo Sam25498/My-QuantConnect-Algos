@@ -24,3 +24,15 @@ class FocusedYellowLemur(QCAlgorithm):
         self.SetWarmUp(100, Resolution.Hour)
 
 
+    def OnData(self, data):
+        
+        if self.IsWarmingUp:
+            return
+            
+        for symbol, symbolData in self.Data.items(): #Returns self.data's dictionary key-value pairs
+            if not (data.ContainsKey(symbol) and data[symbol] is not None and symbolData.IsReady):
+                continue
+            
+            rsi = symbolData.rsi.Current.Value # get the current indicator value
+            current_price = symbolData.closeWindow[0]
+            
