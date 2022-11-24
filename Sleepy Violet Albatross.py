@@ -176,3 +176,21 @@ class SymbolData:
                     self.Log(f"{self.Time} Entered Short Position at {current_price}")
                         
                     
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.rsi = RelativeStrengthIndex(3) #Resolution.Hour
+        self.RsiWindow = RollingWindow[IndicatorDataPoint](2)
+        
+        #Generating 3-period RSI values of 4 hours Resolution
+        algorithm.RegisterIndicator(symbol, self.rsi, timedelta(hours=4))
+        self.rsi.Updated += self.RsiUpdated 
+        
+
+        self.closeWindow = RollingWindow[float](10)
+        
+        # Add consolidator to track rolling close prices
+        self.consolidator = TradeBarConsolidator(timedelta(hours=4))
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
+
