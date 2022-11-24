@@ -194,3 +194,15 @@ class SymbolData:
         algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
         
 
+    def RsiUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.rsi.IsReady:
+            self.RsiWindow.Add(updated)
+
+    def CloseUpdated(self, sender, bar):
+        '''Event holder to update the close Rolling Window values'''
+        self.closeWindow.Add(bar.Close)
+       
+    @property 
+    def IsReady(self):
+        return self.rsi.IsReady and self.closeWindow.IsReady   
