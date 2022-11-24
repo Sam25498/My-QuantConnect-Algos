@@ -111,4 +111,15 @@ class SymbolData:
     def CloseUpdated(self, sender, bar):
         '''Event holder to update the close Rolling Window values'''
         self.closeWindow.Add(bar.Close)
-       
+    @property 
+    def IsReady(self):
+        return self.rsi.IsReady and self.closeWindow.IsReady    def OnData(self, data):
+        
+        if self.IsWarmingUp:
+            return
+            
+        for symbol, symbolData in self.Data.items(): #Returns self.data's dictionary key-value pairs
+            if not (data.ContainsKey(symbol) and data[symbol] is not None and symbolData.IsReady):
+                continue
+            
+      
