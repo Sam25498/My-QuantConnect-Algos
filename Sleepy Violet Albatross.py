@@ -35,4 +35,13 @@ class FocusedYellowLemur(QCAlgorithm):
             
             rsi = symbolData.rsi.Current.Value # get the current indicator value
             current_price = symbolData.closeWindow[0]
-            
+            if self.Portfolio[symbol].Invested:
+                
+                if self.isLong:
+                    condStopProfit = (current_price - self.buyInPrice)/self.buyInPrice > self.stopProfitLevel
+                    condStopLoss = (current_price - self.buyInPrice)/self.buyInPrice < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Profit at {current_price}")
+                        
+
