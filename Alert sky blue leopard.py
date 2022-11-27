@@ -12,3 +12,5 @@ class AlertSkyBlueLeopard(QCAlgorithm):
     def OnData(self, data):
         ''' OnData event is the primary entry point for your algorithm. Each new data point will be pumped in here.
             Arguments:
+                data: Slice object keyed by symbol containing the stock data
+        '''
