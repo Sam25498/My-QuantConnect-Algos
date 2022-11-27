@@ -17,3 +17,5 @@ class AlertSkyBlueLeopard(QCAlgorithm):
       
         # Check if we're not invested and then put portfolio 100% in the SPY ETF.      
         if not self.Portfolio.Invested:
+           self.SetHoldings("SPY", 1)       
+       
