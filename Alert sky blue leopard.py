@@ -14,3 +14,6 @@ class AlertSkyBlueLeopard(QCAlgorithm):
             Arguments:
                 data: Slice object keyed by symbol containing the stock data
         '''
+      
+        # Check if we're not invested and then put portfolio 100% in the SPY ETF.      
+        if not self.Portfolio.Invested:
