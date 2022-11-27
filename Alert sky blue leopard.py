@@ -8,4 +8,5 @@ class AlertSkyBlueLeopard(QCAlgorithm):
         self.SetCash(100000) 
         self.AddEquity("SPY", Resolution.Minute)
        
-        
+  
+    def OnData(self, data):
