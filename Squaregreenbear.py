@@ -32,3 +32,10 @@ class SquareGreenBear(QCAlgorithm):
         #["EURUSD", "AUDUSD","USDCHF"]
         for cf in self.averages.values() :
             if cf.Symbol not in self.averages:
+                self.averages[cf.Symbol ] = SymbolData(cf.Symbol)
+                
+
+            # Updates the SymbolData object with current EOD price
+            avg = self.averages[cf.Symbol]
+            avg.update(cf.Time, data[cf].Close)
+            
