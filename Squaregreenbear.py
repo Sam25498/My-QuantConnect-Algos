@@ -25,3 +25,10 @@ class SquareGreenBear(QCAlgorithm):
             Arguments:
                 data: Slice object keyed by symbol containing the stock data
         '''
+
+        # if not self.Portfolio.Invested:
+        #    self.SetHoldings("SPY", 1)
+        # We are going to use a dictionary to refer the object that will keep the moving averages
+        #["EURUSD", "AUDUSD","USDCHF"]
+        for cf in self.averages.values() :
+            if cf.Symbol not in self.averages:
