@@ -42,4 +42,15 @@ class SquareGreenBear(QCAlgorithm):
 
         # Filter the values of the dict: we only want up-trending securities
         values = list(filter(lambda x: x.is_uptrend, self.averages.values()))
+        # Sorts the values of the dict: we want those with greater difference between the moving averages
+        values.sort(key=lambda x: x.scale, reverse=True)
         
+        for x in values:
+            if not self.Porfolio[x].Invested:
+                self.SetHoldings(x.Symbol, 1)
+            
+
+class SymbolData(object):
+    def __init__(self, symbol):
+        self.symbol = symbol
+         
