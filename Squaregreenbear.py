@@ -9,3 +9,8 @@ class SquareGreenBear(QCAlgorithm):
         self.SetEndDate(2020, 10, 15)
         self.SetCash(100000)  # Set Strategy Casho
         
+        self.averages = { }
+        for ticker in ["EURUSD", "AUDUSD","USDCHF"]:
+            symbol = self.AddForex(ticker, Resolution.Daily, Market.Oanda).Symbol
+            self.averages[symbol] = SymbolData(symbol)
+    
