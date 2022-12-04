@@ -54,3 +54,9 @@ class SymbolData(object):
     def __init__(self, symbol):
         self.symbol = symbol
          
+        self.tolerance = 1.01
+        self.fast = ExponentialMovingAverage(100)
+        self.slow = ExponentialMovingAverage(300)
+        self.is_uptrend = False
+        self.scale = 0
+
