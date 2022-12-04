@@ -14,3 +14,7 @@ class SquareGreenBear(QCAlgorithm):
             symbol = self.AddForex(ticker, Resolution.Daily, Market.Oanda).Symbol
             self.averages[symbol] = SymbolData(symbol)
     
+            
+        self.coarse_count = 10
+        
+     
