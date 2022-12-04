@@ -59,4 +59,11 @@ class SymbolData(object):
         self.slow = ExponentialMovingAverage(300)
         self.is_uptrend = False
         self.scale = 0
+    def update(self, time, value):
+        if self.fast.Update(time, value) and self.slow.Update(time, value):
+            fast = self.fast.Current.Value
+            slow = self.slow.Current.Value
+            self.is_uptrend = fast > slow * self.tolerance
 
+        if self.is_uptrend:
+            self.scale = (fast - slow) / ((fast + slow) / 2.0)    
