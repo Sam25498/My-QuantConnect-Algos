@@ -39,3 +39,7 @@ class SquareGreenBear(QCAlgorithm):
             avg = self.averages[cf.Symbol]
             avg.update(cf.Time, data[cf].Close)
             
+
+        # Filter the values of the dict: we only want up-trending securities
+        values = list(filter(lambda x: x.is_uptrend, self.averages.values()))
+        
