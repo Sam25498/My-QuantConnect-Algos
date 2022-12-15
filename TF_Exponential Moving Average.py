@@ -51,6 +51,7 @@ def ema(Data, alpha, lookback, what, where):
     return Data
 
 my_data = ema(my_data, 2, lookback, 3, 4)
+ohlc_plot_bars(my_data, 500)
 
 
    
