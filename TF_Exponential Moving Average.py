@@ -43,3 +43,10 @@ def ema(Data, alpha, lookback, what, where):
     for i in range(lookback + 2, len(Data)):
             try:
  
+                Data[i, where] = (Data[i, what] * alpha) + (Data[i - 1, where] * beta)
+        
+            except IndexError:
+                pass
+            
+
+   
