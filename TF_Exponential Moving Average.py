@@ -30,3 +30,8 @@ def ma(Data, lookback, close, where):
 
 def ema(Data, alpha, lookback, what, where):
     
+    alpha = alpha / (lookback + 1.0)
+    beta  = 1 - alpha
+    
+
+        
