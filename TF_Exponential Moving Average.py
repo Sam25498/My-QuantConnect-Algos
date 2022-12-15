@@ -32,6 +32,7 @@ def ema(Data, alpha, lookback, what, where):
     
     alpha = alpha / (lookback + 1.0)
     beta  = 1 - alpha
+    # First value is a simple SMA
+    Data = ma(Data, lookback, what, where)
     
-
-        
+    # Calculating first EMA
