@@ -53,6 +53,7 @@ def ema(Data, alpha, lookback, what, where):
 my_data = ema(my_data, 2, lookback, 3, 4)
 ohlc_plot_bars(my_data, 500)
 plt.plot(my_data[-500:, 4], label = '100-period Exponential Moving Average')
+plt.legend()    
 
 
         
