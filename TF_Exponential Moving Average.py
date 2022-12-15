@@ -16,3 +16,17 @@ def ma(Data, lookback, close, where):
     Data = adder(Data, 1)
     
     for i in range(len(Data)):
+           
+            try:
+                Data[i, where] = (Data[i - lookback + 1:i + 1, close].mean())
+            
+            except IndexError:
+                pass
+            
+    # Cleaning
+    Data = jump(Data, lookback)
+    
+    return Data
+
+def ema(Data, alpha, lookback, what, where):
+    
