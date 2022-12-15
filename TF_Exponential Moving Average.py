@@ -36,3 +36,10 @@ def ema(Data, alpha, lookback, what, where):
     Data = ma(Data, lookback, what, where)
     
     # Calculating first EMA
+    
+    Data[lookback + 1, where] = (Data[lookback + 1, what] * alpha) + (Data[lookback, where] * beta)
+
+    # Calculating the rest of EMA
+    for i in range(lookback + 2, len(Data)):
+            try:
+ 
