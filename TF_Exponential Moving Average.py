@@ -48,5 +48,9 @@ def ema(Data, alpha, lookback, what, where):
             except IndexError:
                 pass
             
+    return Data
+
+my_data = ema(my_data, 2, lookback, 3, 4)
+
 
    
