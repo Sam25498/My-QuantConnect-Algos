@@ -17,3 +17,9 @@ class UpgradedRedOrangeGorilla(QCAlgorithm):
             self.Data[symbol] = SymbolData(self, symbol)
             
         
+        self.SetWarmUp(200, Resolution.Hour)
+
+
+    def OnData(self, data):
+        
+        if self.IsWarmingUp:
