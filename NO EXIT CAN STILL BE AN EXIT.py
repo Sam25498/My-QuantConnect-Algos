@@ -76,6 +76,11 @@ class SymbolData:
     def __init__(self, algorithm, symbol):
                           
         self.closeWindow = RollingWindow[float](50)
+        # Add consolidator to track rolling close prices
+        self.consolidator = QuoteBarConsolidator(4)
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
 
         
                 
