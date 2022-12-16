@@ -58,6 +58,15 @@ class UpgradedRedOrangeGorilla(QCAlgorithm):
                     self.SetHoldings(symbol, 0)
                     # get buy-in price for trailing stop loss/profit
                           
-          
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if current_price == lowest:
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+    
             
        
