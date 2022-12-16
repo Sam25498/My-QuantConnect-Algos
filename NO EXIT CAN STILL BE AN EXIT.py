@@ -85,7 +85,10 @@ class SymbolData:
     def CloseUpdated(self, sender, bar):
         '''Event holder to update the close Rolling Window values'''
         self.closeWindow.Add(bar.Close)
-  
+    @property 
+    def IsReady(self):
+        return self.closeWindow.IsReady                    
+          
 
         
 
