@@ -41,8 +41,14 @@ class UpgradedRedOrangeGorilla(QCAlgorithm):
                         self.Liquidate(symbol)
                         self.Log(f"{self.Time} Long Position Stop Profit at {current_price}")
                         
-         
-            
+                  
+                else:
+                    if current_price == highest:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Profit at {current_price}")
+                        
+                  
+                          
           
             
        
