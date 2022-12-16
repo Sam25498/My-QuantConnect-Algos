@@ -80,6 +80,13 @@ class SymbolData:
         self.consolidator = QuoteBarConsolidator(4)
         self.consolidator.DataConsolidated += self.CloseUpdated
         algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+
+            
+    def CloseUpdated(self, sender, bar):
+        '''Event holder to update the close Rolling Window values'''
+        self.closeWindow.Add(bar.Close)
+  
+
         
 
         
