@@ -23,3 +23,14 @@ class UpgradedRedOrangeGorilla(QCAlgorithm):
     def OnData(self, data):
         
         if self.IsWarmingUp:
+            return
+        
+        for symbol, symbolData in self.Data.items():
+            if not (data.ContainsKey(symbol) and data[symbol] is not None and symbolData.IsReady):
+                continue
+            
+            current_price = data[symbol].Close
+            
+          
+            
+       
