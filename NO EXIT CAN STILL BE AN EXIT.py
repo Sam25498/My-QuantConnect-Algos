@@ -48,6 +48,15 @@ class UpgradedRedOrangeGorilla(QCAlgorithm):
                         self.Log(f"{self.Time} Short Position Stop Profit at {current_price}")
                         
                   
+             
+            
+            
+            if not self.Portfolio[symbol].Invested:
+                
+                
+                if current_price == highest:
+                    self.SetHoldings(symbol, 0)
+                    # get buy-in price for trailing stop loss/profit
                           
           
             
