@@ -67,6 +67,18 @@ class UpgradedRedOrangeGorilla(QCAlgorithm):
                     self.SetHoldings(symbol, -1)
                     # get sell-in price for trailing stop loss/profit
                     self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                        
+                    
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+                          
+        self.closeWindow = RollingWindow[float](50)
+
+        
+                
     
             
        
