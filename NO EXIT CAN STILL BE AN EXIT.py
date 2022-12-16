@@ -30,6 +30,18 @@ class UpgradedRedOrangeGorilla(QCAlgorithm):
                 continue
             
             current_price = data[symbol].Close
+            ordered = sorted(symbolData.closeWindow, reverse=True)
+            highest = ordered[0] 
+            lowest = ordered[49] 
+            
+            if self.Portfolio[symbol].Invested:
+                
+                if self.isLong:
+                    if current_price == lowest:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Profit at {current_price}")
+                        
+         
             
           
             
