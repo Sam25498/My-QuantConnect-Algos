@@ -84,7 +84,18 @@ class CreativeVioletDolphin(QCAlgorithm):
                     #Timesold = self.Time
                     self.Log(f"{self.Time} Entered Short Position at {current_price}")
                         
-              
+                    
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.fast = algorithm.SMA(symbol, 5) 
+        self.fastWindow = RollingWindow[IndicatorDataPoint](2)
+        
+        #Generating 5-period EMA values of 4 hours Resolution
+        algorithm.RegisterIndicator(symbol, self.fast, timedelta(hours=4))
+        self.fast.Updated += self.FastUpdated 
+        
+
+                                
     
    
           
