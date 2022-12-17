@@ -54,3 +54,15 @@ class CreativeVioletDolphin(QCAlgorithm):
                     condStopLoss = (self.sellInPrice - current_price)/self.sellInPrice < self.stopLossLevel
   
             
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Profit at {current_price}")
+                        
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Profit at {current_price}")
+                        
+            if not self.Portfolio[symbol].Invested:
+                uptrend = self.is_uptrend
+   
+          
