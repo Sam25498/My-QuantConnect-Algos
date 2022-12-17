@@ -112,7 +112,17 @@ class SymbolData:
         #'''Event holder to update the fast EMA Rolling Window values'''
         if self.fast.IsReady:
             self.fastWindow.Add(updated)
-
+    def SlowUpdated(self, sender, updated):
+        '''Event holder to update the slow SMA Rolling Window values'''
+        if self.slow.IsReady:
+            self.slowWindow.Add(updated)
+            
+            
+    def CloseUpdated(self, sender, bar):
+        '''Event holder to update the close Rolling Window values'''
+        self.closeWindow.Add(bar.Close)
+       
+           
 
 
                                 
