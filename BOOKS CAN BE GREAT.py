@@ -27,6 +27,14 @@ class CreativeVioletDolphin(QCAlgorithm):
             return
             
         for symbol, symbolData in self.Data.items():
-       
+            if not (data.ContainsKey(symbol) and data[symbol] is not None and symbolData.IsReady):
+                continue
+            
+            fast = symbolData.fast.Current.Value
+            slow = symbolData.slow.Current.Value
+            current_price = symbolData.closeWindow[0]
+            #current_price = data[symbol].Close
+            self.is_uptrend = fast > slow * self.tolerance
+            self.is_downtrend = slow > fast * self.tolerance
             
             
