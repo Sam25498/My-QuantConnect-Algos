@@ -122,7 +122,11 @@ class SymbolData:
         '''Event holder to update the close Rolling Window values'''
         self.closeWindow.Add(bar.Close)
        
-           
+   @property 
+    def IsReady(self):
+        return self.fast.IsReady  and self.slow.IsReady and self.closeWindow.IsReady                 
+       
+          v           
 
 
                                 
