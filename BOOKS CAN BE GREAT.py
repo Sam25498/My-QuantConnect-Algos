@@ -104,7 +104,16 @@ class SymbolData:
         
         # Add consolidator to track rolling close prices
         self.consolidator = TradeBarConsolidator(4)
-     
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
+
+    def FastUpdated(self, sender, updated):
+        #'''Event holder to update the fast EMA Rolling Window values'''
+        if self.fast.IsReady:
+            self.fastWindow.Add(updated)
+
+
 
                                 
     
