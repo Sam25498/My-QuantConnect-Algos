@@ -74,6 +74,17 @@ class CreativeVioletDolphin(QCAlgorithm):
                     self.isLong = True
                     #Timebought = self.Time
                     self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if uptrend and current_price > fast:
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    #Timesold = self.Time
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                        
+              
     
    
           
