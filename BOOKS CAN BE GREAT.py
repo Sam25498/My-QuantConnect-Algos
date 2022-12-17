@@ -14,6 +14,19 @@ class CreativeVioletDolphin(QCAlgorithm):
         for ticker in ["TSLA","AAPL"]:
             symbol = self.AddEquity(ticker, Resolution.Hour, Market.USA).Symbol
             self.Data[symbol] = SymbolData(self, symbol)
+        self.stopLossLevel = -0.05 # stop loss percentage 
+        self.stopProfitLevel = 0.01# stop profit percentage
+        self.tolerance = 1.01
             
+        self.SetWarmUp(360, Resolution.Hour)
+
+
+    def OnData(self, data):
+        
+        if self.IsWarmingUp:
+            return
+            
+        for symbol, symbolData in self.Data.items():
+       
             
             
