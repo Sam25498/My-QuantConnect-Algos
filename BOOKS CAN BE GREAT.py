@@ -64,5 +64,16 @@ class CreativeVioletDolphin(QCAlgorithm):
                         
             if not self.Portfolio[symbol].Invested:
                 uptrend = self.is_uptrend
+                downtrend = self.is_downtrend
+                
+                if downtrend and current_price < fast:
+                    self.SetHoldings(symbol, 0)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    #Timebought = self.Time
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+    
    
           
