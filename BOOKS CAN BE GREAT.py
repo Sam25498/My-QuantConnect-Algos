@@ -93,7 +93,18 @@ class SymbolData:
         #Generating 5-period EMA values of 4 hours Resolution
         algorithm.RegisterIndicator(symbol, self.fast, timedelta(hours=4))
         self.fast.Updated += self.FastUpdated 
+        self.slow = algorithm.SMA(symbol, 10 ) 
+        self.slowWindow = RollingWindow[IndicatorDataPoint](2)
         
+        #Generating 10-period EMA values of 4 hours Resolution.
+        algorithm.RegisterIndicator(symbol, self.slow, timedelta(hours=4))
+        self.slow.Updated += self.SlowUpdated 
+
+        self.closeWindow = RollingWindow[float](10)
+        
+        # Add consolidator to track rolling close prices
+        self.consolidator = TradeBarConsolidator(4)
+     
 
                                 
     
