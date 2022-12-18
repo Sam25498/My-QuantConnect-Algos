@@ -77,6 +77,34 @@ class FocusedLightBrownCamel(QCAlgorithm):
         tickers = ["AAPL", "AMZN","TSLA","FB"]
         #tickers = ["EURUSD","GBPUSD","AUDUSD","USDJPY"]
         
+    #def __gt__(self):
+        for ticker in tickers:
+            if self.fastsma.Current.Value > self.slowsma.Current.Value and not self.Portfolio[ticker].Invested:
+                self.SetHoldings(ticker, 0.05)
+                self.Debug("Purchased {}".format(ticker))
+            
+                
+            if self.fastsma.Current.Value < self.slowsma.Current.Value and self.Portfolio[ticker].Invested:
+                self.Liquidate(ticker)
+                self.Debug("Sold {} position".format(ticker))
+                
+            
+            #self.Plot("My Chart","fast indicator", self.fastsma.Value)
+            #self.Plot("My Chart", "slow indicator",self.fastsma.Value)
+            
+            
+                #insight = Insight.Price(ticker, timedelta(1), InsightDirection.Up)
+                #return insight
+class FocusedLightBrownCamel(QCAlgorithm):
+        def OnData(self, data):
+        if self.IsWarmingUp:
+            return
+        
+        if self.Portfolio.Invested:
+            return
+        
+      
+        
 
 
 
