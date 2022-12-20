@@ -7,4 +7,5 @@ self.symbol = self.AddEquity("SPY").Symbol
 if data.ContainsKey(self.symbol):
     self.tema.Update(data[self.symbol].EndTime, data[self.symbol].High)
 if self.tema.IsReady:
-    
+    indicator_value = self.tema.Current.Value
+
