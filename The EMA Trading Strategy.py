@@ -29,6 +29,14 @@ class DancingRedBull(QCAlgorithm):
         self.stopProfitLevel = 0.01# stop profit percentage
         
  
-  
+              
+        self.SetWarmUp(50, Resolution.Minute)
+        
+
+
+    def OnData(self, data):
+        
+        if self.IsWarmingUp: #Data to warm up the algo is being collected.
+
 
     
