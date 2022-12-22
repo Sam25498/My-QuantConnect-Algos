@@ -18,6 +18,17 @@ class DancingRedBull(QCAlgorithm):
         # Rolling Windows to hold bar close data keyed by symbol
         self.Data = {}
 
+        #for self.ticker in self.tickers:
+        symbol = self.AddForex(self.ticker , Resolution.Minute, Market.Oanda).Symbol
+        self.Data[symbol] = SymbolData(self, symbol)
+         
+    
+        self.tolerance = 1.001
+     
+        self.stopLossLevel = -0.05 # stop loss percentage 
+        self.stopProfitLevel = 0.01# stop profit percentage
+        
+ 
   
 
     
