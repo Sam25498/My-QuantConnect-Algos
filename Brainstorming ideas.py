@@ -2,3 +2,5 @@
 
 #B4 initializing the algorithm 
  
+#B4 initializing the algorithm 
+self.LondonSession = None
