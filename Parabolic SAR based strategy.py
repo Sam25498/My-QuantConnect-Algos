@@ -27,4 +27,14 @@ class ParabolicSARAlgorithm(QCAlgorithm):
         # Get the current price
         price = self.Securities[self.symbol].Price
 
-        
+        # Check if we have a position in the market
+        if self.Portfolio[self.symbol].Invested:
+            # Check if we need to exit the position
+            if self.psar.Current.Value > price:
+                self.Sell(self.symbol, self.order_size)
+        else:
+            
+
+
+    
+
