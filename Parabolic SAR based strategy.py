@@ -33,7 +33,17 @@ class ParabolicSARAlgorithm(QCAlgorithm):
             if self.psar.Current.Value > price:
                 self.Sell(self.symbol, self.order_size)
         else:
-            
+             
+            # Check if we need to enter the market
+            if self.psar.Current.Value < price:
+                self.Buy(self.symbol, self.order_size)
+                self.StopMarketOrder(self.symbol, -self.order_size, self.stop_loss)
+
+
+        
+
+
+        
 
 
     
