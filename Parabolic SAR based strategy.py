@@ -10,4 +10,11 @@ class ParabolicSARAlgorithm(QCAlgorithm):
         self.SetBrokerageModel(BrokerageName.OandaBrokerage)
         self.SetLeverage(50)
 
+        # Set the symbols and time frame
+        self.symbol = "EURUSD"
+        self.SetStartDate(2020, 1, 1)
+        self.SetEndDate(2020, 12, 31)
+        self.SetTimeZone("Europe/London")
+        self.AddForex(self.symbol, Resolution.Minute, Market.Oanda)
+
         
