@@ -17,4 +17,11 @@ class ParabolicSARAlgorithm(QCAlgorithm):
         self.SetTimeZone("Europe/London")
         self.AddForex(self.symbol, Resolution.Minute, Market.Oanda)
 
-        
+        # Initialize the Parabolic SAR
+        self.psar = self.PSAR(self.symbol, 0.01, 0.01)
+
+        # Set the order size and stop loss
+        self.order_size = 1000
+        self.stop_loss = -50
+
+    
