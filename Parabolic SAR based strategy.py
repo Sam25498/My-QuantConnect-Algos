@@ -23,5 +23,8 @@ class ParabolicSARAlgorithm(QCAlgorithm):
         # Set the order size and stop loss
         self.order_size = 1000
         self.stop_loss = -50
+    def OnData(self, data):
+        # Get the current price
+        price = self.Securities[self.symbol].Price
 
-    
+        
