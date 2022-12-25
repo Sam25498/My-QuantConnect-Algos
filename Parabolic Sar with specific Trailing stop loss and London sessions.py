@@ -7,7 +7,7 @@ class ParabolicSARAlgorithm(QCAlgorithm):
         # Set the account size and leverage
         self.SetCash(10000)
         self.SetBrokerageModel(BrokerageName.OandaBrokerage)
-        self.SetLeverage(50)
+       # self.SetLeverage(50)
 
         # Set the symbols and time frame
         self.symbol = "EURUSD"
@@ -20,7 +20,7 @@ class ParabolicSARAlgorithm(QCAlgorithm):
         self.psar = self.PSAR(self.symbol, 0.01, 0.01)
         
         self.order_size = 1
-        self.stop_loss = -5
+        self.stop_loss = -0.0005
 
     def OnData(self, data):
         
