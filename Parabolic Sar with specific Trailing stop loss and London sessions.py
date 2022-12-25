@@ -18,4 +18,9 @@ class ParabolicSARAlgorithm(QCAlgorithm):
 
         # Initialize the Parabolic SAR
         self.psar = self.PSAR(self.symbol, 0.01, 0.01)
+        
+        self.order_size = 1
+        self.stop_loss = -5
 
+    def OnData(self, data):
+    
