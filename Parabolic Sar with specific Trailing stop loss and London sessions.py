@@ -29,7 +29,7 @@ class ParabolicSARAlgorithm(QCAlgorithm):
         time = self.Time
 
         # Check if we are in the London session (8am-5pm GMT)
-        if time.hour >= 8 and time.hour < 17:
+        if time.hour >= 8 and time.hour < 12:
             # Check if we have a position in the market
             if self.Portfolio[self.symbol].Invested:
                 # Check if we need to exit the position
