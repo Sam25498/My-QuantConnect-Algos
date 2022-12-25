@@ -39,6 +39,7 @@ class ParabolicSARAlgorithm(QCAlgorithm):
                 # Check if we need to enter the market
                 if self.psar.Current.Value < price:
                     self.Buy(self.symbol, self.order_size)
+                    self.BuyInPrice = price
                     self.SetTrailingStop(self.symbol, self.stop_loss)
         else:
             # Close any open positions outside of the London session
