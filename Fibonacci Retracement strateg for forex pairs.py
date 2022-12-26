@@ -79,7 +79,17 @@ class TachyonDynamicShield(QCAlgorithm):
         
         for symbol in self.symbolDict:
             sd = self.symbolDict[symbol]
-            self.Log(f"Symbol: {symbol} with fibonacci retracements 38.2%: {sd.fib_38_2},  50.0%: {sd.fib_50_0},  61.8%: {sd.fib_61_8} AND MAX: {sd.max} and MIN: {sd.min}")
+            self.Log(f"Symbol: {symbol} with fibonacci retracements 38.2%: {sd.fib_38_2},  
+                     50.0%: {sd.fib_50_0},  
+                     61.8%: {sd.fib_61_8} 
+                     AND MAX: {sd.max} and 
+                     MIN: {sd.min}")
+            if self.Portfolio[symbol].Invested:
+                     pass
+            if not self.Portfolio[symbol].Invested:
+                if sd.fib_61_8 > 1:
+                     self.SetHoldings(symbol, 1)
+                     
         
         
 class SymbolData:
