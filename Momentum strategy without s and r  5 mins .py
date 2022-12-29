@@ -18,7 +18,7 @@ class MeasuredApricot(QCAlgorithm):
         self.Data = {}
 
         #for ticker in tickers:
-        symbol = self.AddForex(self.ticker, Resolution.Hour, Market.Oanda).Symbol
+        symbol = self.AddForex(self.ticker, Resolution.Minutes, Market.Oanda).Symbol
         self.Data[symbol] = SymbolData(self, symbol)
             
         self.tolerance = 0.0025
@@ -28,7 +28,7 @@ class MeasuredApricot(QCAlgorithm):
         
         #self.SupportResistance = SupportResistance(self, self.ticker)
             
-        self.SetWarmUp(50, Resolution.Hour)
+        self.SetWarmUp(50, Resolution.Minutes)
         
         
     #def MarketClose(self):
@@ -111,17 +111,17 @@ class SymbolData:
         self.rsi = RelativeStrengthIndex(14)
         
         self.macdWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
-        algorithm.RegisterIndicator(symbol, self.macd, timedelta(hours=4))
+        algorithm.RegisterIndicator(symbol, self.macd, timedelta(minutes=5))
         self.macd.Updated += self.MacdUpdated                    #Updating those two values
         
         self.rsiWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the slow SMA indicator, takes two values
-        algorithm.RegisterIndicator(symbol, self.rsi, timedelta(hours=4))
+        algorithm.RegisterIndicator(symbol, self.rsi, timedelta(minutes=5))
         self.rsi.Updated += self.RsiUpdated                    #Updating those two values
         
         self.closeWindow = RollingWindow[float](21)
         
         # Add consolidator to track rolling close prices
-        self.consolidator = QuoteBarConsolidator(4)
+        self.consolidator = QuoteBarConsolidator(5)
         self.consolidator.DataConsolidated += self.CloseUpdated
         algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
         
