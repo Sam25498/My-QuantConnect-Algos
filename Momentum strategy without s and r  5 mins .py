@@ -18,7 +18,7 @@ class MeasuredApricot(QCAlgorithm):
         self.Data = {}
 
         #for ticker in tickers:
-        symbol = self.AddForex(self.ticker, Resolution.Minutes, Market.Oanda).Symbol
+        symbol = self.AddForex(self.ticker, Resolution.Minute, Market.Oanda).Symbol
         self.Data[symbol] = SymbolData(self, symbol)
             
         self.tolerance = 0.0025
@@ -28,7 +28,7 @@ class MeasuredApricot(QCAlgorithm):
         
         #self.SupportResistance = SupportResistance(self, self.ticker)
             
-        self.SetWarmUp(50, Resolution.Minutes)
+        self.SetWarmUp(50, Resolution.Minute)
         
         
     #def MarketClose(self):
