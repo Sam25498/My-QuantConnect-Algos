@@ -150,5 +150,20 @@ class CreativeYellowTapir(QCAlgorithm):
         return maxima #The data points in here is starts from most recent to oldest.
                     
                     
-           
+    def ValleyBottoms(self, window, h = 3): 
+        
+        series = window
+        #supports = []
+       
+        minima = []
+        
+        # finding maxima and minima by looking for hills/troughs locally..........
+        for i in range(h, series.Size-h):
+            if series[i] < series[i-1] and series[i] < series[i+1] and series[i+1] < series[i+2] and series[i-1] < series[i-2]:
+                minima.append(series[i])
+        
+                    
+        return minima #The data points in here is starts from most recent to oldest.
+                        
+       
         
