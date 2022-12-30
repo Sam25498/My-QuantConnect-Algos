@@ -120,5 +120,35 @@ class CreativeYellowTapir(QCAlgorithm):
                 if RSI > 50 and Macdlong and BelowResistance:
                     self.SetHoldings(symbol, 1)
                     # get buy-in price for trailing stop loss/profit
-         
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if RSI < 50  and not Macdlong and AboveSupport: 
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                    
+                    
+    def HillTops(self, window, h = 3):
+        
+        series = window
+        #resistances = []
+        
+        maxima = []
+        
+        # finding maxima and minima by looking for hills/troughs locally
+        for i in range(h, series.Size-h):
+            if series[i] > series[i-1] and series[i] > series[i+1]  and series[i+1] > series[i+2] and series[i-1] > series[i-2] :
+                maxima.append(series[i])
+       
+        
+        return maxima #The data points in here is starts from most recent to oldest.
+                    
+                    
+           
         
