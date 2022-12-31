@@ -129,5 +129,52 @@ class CreativeYellowTapir(QCAlgorithm):
                     # entered short position
                     self.isLong = False
                     self.Log(f"{self.Time} Entered Short Position at {current_price}")
+    def HillTops(self, window, h = 3):
+        
+        series = window
+        
+        maxima = []
+        
+        # finding maxima and minima by looking for hills/troughs locally
+        for i in range(h, series.Size-h):
+            if series[i] > series[i-1] and series[i] > series[i+1]  and series[i+1] > series[i+2] and series[i-1] > series[i-2] :
+                maxima.append(series[i])
+       
+        
+        return maxima #The data points in here is starts from most recent to oldest.
+                    
+                    
+    def ValleyBottoms(self, window, h = 3): 
+        
+        series = window
+       
+        minima = []
+        
+        # finding maxima and minima by looking for hills/troughs locally..........
+        for i in range(h, series.Size-h):
+            if series[i] < series[i-1] and series[i] < series[i+1] and series[i+1] < series[i+2] and series[i-1] < series[i-2]:
+                minima.append(series[i])
+        
+                    
+        return minima #The data points in here is starts from most recent to oldest.
+                        
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        #self.macd = MovingAverageConvergenceDivergence(12,26,9)
+        self.rsi = RelativeStrengthIndex(14)
+      
+        self.rsiWindow = RollingWindow[IndicatorDataPoint](50)   #setting the Rolling Window for the slow SMA indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.rsi, timedelta(minutes=5))
+        self.rsi.Updated += self.RsiUpdated                    #Updating those two values
+        
+        self.closeWindow = RollingWindow[float](50)
+       
+        #Add consolidator to track rolling close prices..
+        self.consolidator = QuoteBarConsolidator(5)
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
 
+              
+                    
 
