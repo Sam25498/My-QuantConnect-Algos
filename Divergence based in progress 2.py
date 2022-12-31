@@ -129,6 +129,5 @@ class CreativeYellowTapir(QCAlgorithm):
                     # entered short position
                     self.isLong = False
                     self.Log(f"{self.Time} Entered Short Position at {current_price}")
-                    
-                    
+
 
