@@ -71,9 +71,35 @@ class MuscularRedOrangeHorse(QCAlgorithm):
                         self.Liquidate(symbol)
                         self.Log(f"{self.Time} Short Position Stop Profit at {current_price}")
                         
-
-                          
-
-
-
-    
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Loss at {current_price}")
+            
+            
+            
+            if not self.Portfolio[symbol].Invested:
+                FastisOverSlow = fastEMA > slowEMA #* self.tolerance
+                SlowisOverFast = slowEMA > fastEMA #* self.tolerance
+                FastisOverMedium = fastEMA > mediumEMA #* self.tolerance
+                MediumisOverFast = mediumEMA > fastEMA #* self.tolerance
+                PreviousFastBelowPreviousM = previousf < previousm 
+                PreviousFastAbovePreviousM = previousf > previousm
+                
+                
+                if FastisOverSlow and FastisOverMedium and PreviousFastBelowPreviousM: #
+                    self.SetHoldings(symbol, 1)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if SlowisOverFast and MediumisOverFast  and PreviousFastAbovePreviousM: #
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                        
+                    
