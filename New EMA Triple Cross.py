@@ -33,6 +33,37 @@ class MuscularRedOrangeHorse(QCAlgorithm):
             
         self.SetWarmUp(50, Resolution.Hour)
         
+    def OnData(self, data):
+        
+        if self.IsWarmingUp: #Data to warm up the algo is being collected.
+            return
+        
+        for symbol, symbolData in self.Data.items(): #Return the dictionary's key-value pairs:
+            if not (data.ContainsKey(symbol) and data[symbol] is not None and symbolData.IsReady):
+                continue
+            
+            slowEMA = symbolData.slowema.Current.Value
+            fastEMA = symbolData.fastema.Current.Value
+            mediumEMA = symbolData.mediumema.Current.Value
+            previousf = symbolData.fastWindow[1]
+            previousm = symbolData.mediumWindow[1]
+            
+            current_price = data[symbol].Close
+            
+            
+
+            if self.Portfolio[symbol].Invested:
+                
+                if self.isLong:
+                    condStopProfit = (current_price - self.buyInPrice)/self.buyInPrice > self.stopProfitLevel
+                    condStopLoss = (current_price - self.buyInPrice)/self.buyInPrice < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Profit at {current_price}")
+                        
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Loss at {current_price}")
 
 
 
