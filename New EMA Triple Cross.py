@@ -64,6 +64,15 @@ class MuscularRedOrangeHorse(QCAlgorithm):
                     if condStopLoss:
                         self.Liquidate(symbol)
                         self.Log(f"{self.Time} Long Position Stop Loss at {current_price}")
+                else:
+                    condStopProfit = (self.sellInPrice - current_price)/self.sellInPrice > self.stopProfitLevel
+                    condStopLoss = (self.sellInPrice - current_price)/self.sellInPrice < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Profit at {current_price}")
+                        
+
+                          
 
 
 
