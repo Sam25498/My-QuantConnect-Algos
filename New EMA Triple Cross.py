@@ -104,9 +104,9 @@ class MuscularRedOrangeHorse(QCAlgorithm):
                         
 class SymbolData:
     def __init__(self, algorithm, symbol):
-        self.fastema = ExponentialMovingAverage(50)
-        self.mediumema = ExponentialMovingAverage(100)
-        self.slowema = ExponentialMovingAverage(200)
+        self.fastema = ExponentialMovingAverage(5)
+        self.mediumema = ExponentialMovingAverage(20)
+        self.slowema = ExponentialMovingAverage(50)
         
         self.slowWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
         algorithm.RegisterIndicator(symbol, self.slowema, timedelta(hours=1))
