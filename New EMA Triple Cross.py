@@ -102,4 +102,49 @@ class MuscularRedOrangeHorse(QCAlgorithm):
                     self.isLong = False
                     self.Log(f"{self.Time} Entered Short Position at {current_price}")
                         
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.fastema = ExponentialMovingAverage(50)
+        self.mediumema = ExponentialMovingAverage(100)
+        self.slowema = ExponentialMovingAverage(200)
+        
+        self.slowWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.slowema, timedelta(hours=1))
+        self.slowema.Updated += self.SlowEMAUpdated                    #Updating those two values
+        
+        self.fastWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.fastema, timedelta(hours=1))
+        self.fastema.Updated += self.FastEMAUpdated                    #Updating those two values
+        
+        self.mediumWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.mediumema, timedelta(hours=1))
+        self.mediumema.Updated += self.MediumEMAUpdated                    #Updating those two values
+        
+
+    def SlowEMAUpdated (self, sender, updated):
+        '''Event holder to update the MACD Rolling Window values.'''
+        if self.slowema.IsReady:
+            self.slowWindow.Add(updated)
+
+    def FastEMAUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.fastema.IsReady:
+            self.fastWindow.Add(updated)
+            
+    def MediumEMAUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.mediumema.IsReady:
+            self.mediumWindow.Add(updated)
+            
+    @property 
+    def IsReady(self):
+        return self.slowema.IsReady and self.fastema.IsReady and self.mediumema.IsReadyv  
+
+                        
+
+                          
+
+
+
+    
                     
