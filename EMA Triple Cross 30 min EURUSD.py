@@ -1,4 +1,14 @@
-""" Yields and average of 8% on EURUSD pair""""
+""" Yields and average of 8% on EURUSD pair
+$12M Capacity
+$108,630.39 Equity
+-$0.00 Fees
+$0.00 Holdings
+$8,630.39 Net Profit
+74.511% PSR
+8.63 % Return
+$0.00 Unrealized 
+$5,067,
+""""
 #region imports
 from AlgorithmImports import *
 #endregion
