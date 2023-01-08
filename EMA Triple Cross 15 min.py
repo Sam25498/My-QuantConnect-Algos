@@ -130,5 +130,32 @@ class SymbolData:
         self.consolidator = QuoteBarConsolidator(15)
         self.consolidator.DataConsolidated += self.CloseUpdated
         algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+    def SlowEMAUpdated (self, sender, updated):
+        '''Event holder to update the MACD Rolling Window values.'''
+        if self.slowema.IsReady:
+            self.slowWindow.Add(updated)
+
+    def FastEMAUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.fastema.IsReady:
+            self.fastWindow.Add(updated)
+            
+    def MediumEMAUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.mediumema.IsReady:
+            self.mediumWindow.Add(updated)
+            
+    def CloseUpdated(self, sender, bar):
+        '''Event holder to update the close Rolling Window values'''
+        self.closeWindow.Add(bar.Close)
+        
+    @property 
+    def IsReady(self):
+        return self.slowema.IsReady and self.fastema.IsReady and self.mediumema.IsReady and self.closeWindow.IsReady            
+            
+            
+
+  
+              
         
               
