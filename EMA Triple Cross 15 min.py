@@ -106,4 +106,29 @@ class MuscularRedOrangeHorse(QCAlgorithm):
                     self.isLong = False
                     self.Log(f"{self.Time} Entered Short Position at {current_price}")
                         
-                    
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.fastema = ExponentialMovingAverage(5)
+        self.mediumema = ExponentialMovingAverage(20)
+        self.slowema = ExponentialMovingAverage(50)
+        
+        self.slowWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.slowema, timedelta(minutes=15))
+        self.slowema.Updated += self.SlowEMAUpdated                    #Updating those two values
+        
+        self.fastWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.fastema, timedelta(minutes=15))
+        self.fastema.Updated += self.FastEMAUpdated                    #Updating those two values
+        
+        self.mediumWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.mediumema, timedelta(minutes=15))
+        self.mediumema.Updated += self.MediumEMAUpdated                    #Updating those two values
+        
+        self.closeWindow = RollingWindow[float](50)
+       
+        #Add consolidator to track rolling close prices..
+        self.consolidator = QuoteBarConsolidator(15)
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
+              
