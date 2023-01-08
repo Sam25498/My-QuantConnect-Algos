@@ -91,5 +91,19 @@ class MuscularRedOrangeHorse(QCAlgorithm):
                 
                 
                 if FastisOverSlow and FastisOverMedium and PreviousFastBelowPreviousM: #
-
-  
+                    self.SetHoldings(symbol, 1)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if SlowisOverFast and MediumisOverFast  and PreviousFastAbovePreviousM: #
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                        
+                    
