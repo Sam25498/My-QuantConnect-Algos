@@ -129,4 +129,22 @@ class SymbolData:
         
            
 
-    
+            self.mediumWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.mediumema, timedelta(hours=1))
+        self.mediumema.Updated += self.MediumEMAUpdated                    #Updating those two values
+        
+        self.closeWindow = RollingWindow[float](50)
+       
+        #Add consolidator to track rolling close prices..
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
+    def SlowEMAUpdated (self, sender, updated):
+        '''Event holder to update the MACD Rolling Window values.'''
+        if self.slowema.IsReady:
+            self.slowWindow.Add(updated)
+
+    def FastEMAUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+
