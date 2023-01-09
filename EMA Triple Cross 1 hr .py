@@ -67,5 +67,25 @@ class MuscularRedOrangeHorse(QCAlgorithm):
                 if self.isLong:
                     condStopProfit = (profit / cash) > self.stopProfitLevel
                     condStopLoss = (profit / cash) < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Profit at {current_price}")
+                        
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Loss at {current_price}")
+                else:
+                    condStopProfit = (profit / cash) > self.stopProfitLevel
+                    condStopLoss = (profit / cash) < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Profit at {current_price}")
+                        
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Loss at {current_price}")
+            
+            
+            
 
     
