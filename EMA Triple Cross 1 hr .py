@@ -126,10 +126,8 @@ class SymbolData:
         self.fastWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
         algorithm.RegisterIndicator(symbol, self.fastema, timedelta(hours=1))
         self.fastema.Updated += self.FastEMAUpdated                    #Updating those two values
-        
-           
 
-            self.mediumWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        self.mediumWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
         algorithm.RegisterIndicator(symbol, self.mediumema, timedelta(hours=1))
         self.mediumema.Updated += self.MediumEMAUpdated                    #Updating those two values
         
@@ -147,4 +145,19 @@ class SymbolData:
 
     def FastEMAUpdated(self, sender, updated):
         '''Event holder to update the RSI Rolling Window values'''
-
+        
+        if self.fastema.IsReady:
+            self.fastWindow.Add(updated)
+            
+    def MediumEMAUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.mediumema.IsReady:
+            self.mediumWindow.Add(updated)
+            
+    def CloseUpdated(self, sender, bar):
+        '''Event holder to update the close Rolling Window values'''
+        self.closeWindow.Add(bar.Close)
+        
+    @property 
+    def IsReady(self):
+        return self.slowema.IsReady and self.fastema.IsReady and self.mediumema.IsReady and self.closeWindow.IsReady v
