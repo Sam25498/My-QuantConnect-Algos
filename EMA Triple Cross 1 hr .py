@@ -160,4 +160,63 @@ class SymbolData:
         
     @property 
     def IsReady(self):
-        return self.slowema.IsReady and self.fastema.IsReady and self.mediumema.IsReady and self.closeWindow.IsReady v
+        return self.slowema.IsReady and self.fastema.IsReady and self.mediumema.IsReady and self.closeWindow.IsReady 
+    
+    #0.5% : 1% Risk to Reward Ratio
+    """ $1.5M
+Capacity
+$109,681.66
+Equity
+-$0.00
+Fees
+$0.00
+Holdings
+$9,681.66
+Net Profit
+77.107%
+PSR
+9.68 %
+Return
+$0.00
+Unrealized
+$7,513,"""
+    
+     #1% : 2% Risk to Reward Ratio
+        """
+        $1.5M
+Capacity
+$108,154.85
+Equity
+-$0.00
+Fees
+$107,910.84
+Holdings
+$6,966.11
+Net Profit
+56.298%
+PSR
+8.15 %
+Return
+$1,183.03
+Unrealized
+        """
+        #1% : 1% Risk to Reward Ratio
+        """
+        $1.5M
+Capacity
+$106,294.28
+Equity
+-$0.00
+Fees
+$0.00
+Holdings
+$6,294.28
+Net Profit
+46.391%
+PSR
+6.29 %
+Return
+$0.00
+Unrealized
+$5,973,
+        """
