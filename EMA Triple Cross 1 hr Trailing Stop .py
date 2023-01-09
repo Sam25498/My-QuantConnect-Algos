@@ -180,4 +180,21 @@ class SymbolData:
     def IsReady(self):
         return self.slowema.IsReady and self.fastema.IsReady and self.mediumema.IsReady and self.closeWindow.IsReady 
     
-   
+   #Backtest REsults
+"""
+$1.1M
+Capacity
+$89,248.30
+Equity
+-$0.00
+Fees
+$110,495.97
+Holdings
+$0.00
+Net Profit
+0.412%
+PSR
+-10.75 %
+Return
+$-10,757.55
+"""
