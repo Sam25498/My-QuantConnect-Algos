@@ -49,5 +49,23 @@ class MuscularRedOrangeHorse(QCAlgorithm):
                 continue
             
 
-  
+              slowEMA = symbolData.slowema.Current.Value
+            fastEMA = symbolData.fastema.Current.Value
+            mediumEMA = symbolData.mediumema.Current.Value
+            previousf = symbolData.fastWindow[1]
+            previousm = symbolData.mediumWindow[1]
+            
+            #current_price = data[symbol].Close
+            current_price = symbolData.closeWindow[0]
+            
+            profit = self.Portfolio[symbol].UnrealizedProfit
+            #profit = self.Portfolio[symbol].NetProfit #Gets the unrealized profit as a percentage of holdings cost
+            cash = self.Portfolio.Cash #Sum of all currencies in account in US dollars (only unsettled cash)
+
+            if self.Portfolio[symbol].Invested:
+                
+                if self.isLong:
+                    condStopProfit = (profit / cash) > self.stopProfitLevel
+                    condStopLoss = (profit / cash) < self.stopLossLevel
+
     
