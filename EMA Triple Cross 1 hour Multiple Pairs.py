@@ -159,5 +159,41 @@ class SymbolData:
     @property 
     def IsReady(self):
         return self.slowema.IsReady and self.fastema.IsReady and self.mediumema.IsReady and self.closeWindow.IsReady
+    
+    # "EURUSD", "GBPUSD" Backtest Results
+    """
+    $1.6M
+Capacity
+$124,150.44
+Equity
+-$0.00
+Fees
+$0.00
+Holdings
+$24,150.44
+Net Profit
+98.302%
+PSR
+24.15 %
+Return
+$0.00
+Unrealized
+$16,4
+    """
+    # "EURUSD", "GBPUSD", "USDJPY" Backtest Results
+    """
+    $1.5M
+Capacity
+$109,860.08
+Equity
+-$0.00
+Fees
+$110,016.00
+Holdings
+$10,642.01
+Net Profit
+48.539%
+PSR
+9.86 %"""
   
     
