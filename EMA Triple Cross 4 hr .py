@@ -94,6 +94,35 @@ class MuscularRedOrangeHorse(QCAlgorithm):
                 PreviousFastBelowPreviousM = previousf < previousm 
                 PreviousFastAbovePreviousM = previousf > previousm
 
+                
+                
+                if FastisOverSlow and FastisOverMedium and PreviousFastBelowPreviousM:# and self.LondonSession: 
+                    self.SetHoldings(symbol, 1)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if SlowisOverFast and MediumisOverFast  and PreviousFastAbovePreviousM: # and self.LondonSession: #
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+         
+            
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                        
+                    
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.fastema = ExponentialMovingAverage(5)
+        self.mediumema = ExponentialMovingAverage(20)
+        self.slowema = ExponentialMovingAverage(50)
+        
+        self.slowWindow = RollingWindow[Decimal](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.slowema, timedelta(hours=4))
+        self.slowema.Updated += self.SlowEMAUpdated                    #Updating those two values
+        
 
-    
-    
