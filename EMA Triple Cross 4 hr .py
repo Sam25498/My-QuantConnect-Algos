@@ -50,6 +50,49 @@ class MuscularRedOrangeHorse(QCAlgorithm):
             
 
 
+            slowEMA = symbolData.slowema.Current.Value
+            fastEMA = symbolData.fastema.Current.Value
+            mediumEMA = symbolData.mediumema.Current.Value
+            previousf = symbolData.fastWindow[1]
+            previousm = symbolData.mediumWindow[1]
+            
+            #current_price = data[symbol].Close
+            current_price = symbolData.closeWindow[0]
+            
+            profit = self.Portfolio[symbol].UnrealizedProfit
+            #profit = self.Portfolio[symbol].NetProfit #Gets the unrealized profit as a percentage of holdings cost
+            cash = self.Portfolio.Cash #Sum of all currencies in account in US dollars (only unsettled cash)
+
+            if self.Portfolio[symbol].Invested:
+                
+                if self.isLong:
+                    condStopProfit = (profit / cash) > self.stopProfitLevel
+                    condStopLoss = (profit / cash) < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Profit at {current_price}")
+                        
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Loss at {current_price}")
+                else:
+                    condStopProfit = (profit / cash) > self.stopProfitLevel
+                    condStopLoss = (profit / cash) < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Profit at {current_price}")
+                        
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Loss at {current_price}")
+                        
+            if not self.Portfolio[symbol].Invested:
+                FastisOverSlow = fastEMA > slowEMA #* self.tolerance
+                SlowisOverFast = slowEMA > fastEMA #* self.tolerance
+                FastisOverMedium = fastEMA > mediumEMA #* self.tolerance
+                MediumisOverFast = mediumEMA > fastEMA #* self.tolerance
+                PreviousFastBelowPreviousM = previousf < previousm 
+                PreviousFastAbovePreviousM = previousf > previousm
 
 
     
