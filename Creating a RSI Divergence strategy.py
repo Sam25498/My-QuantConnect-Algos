@@ -71,8 +71,8 @@ using this variables:"""
 # Bullish Divergence
 for i in range(len(Data)):
    try:
-       if Data[i, 4] < lower_barrier:
-           for a in range(i + 1, i + width):
+       if Data[i, 4] < lower_barrier: #If RSI < lower_barrier
+           for a in range(i + 1, i + width): #for a in range(i + 1, i + 10)
                if Data[a, 4] > lower_barrier:
                     for r in range(a + 1, a + width):
                        if Data[r, 4] < lower_barrier and \
