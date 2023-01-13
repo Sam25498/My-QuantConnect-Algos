@@ -67,6 +67,11 @@ Column 6: Data[:, 5] will be for the bullish divergences and will have values of
 Column 7: Data[:, 6] will be for the bearish divergences and will have values of 0 or -1 (initiate short).
 using this variables:"""
 
+lower_barrier = 30
+upper_barrier = 70
+width = 10
+"""Here is the code:
+"""
 
 # Bullish Divergence
 for i in range(len(Data)):
