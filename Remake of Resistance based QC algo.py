@@ -125,4 +125,5 @@ class SymbolData:
   
     @property 
     def IsReady(self):
+        return self.macd.IsReady and self.rsi.IsReady and self.lowWindow.IsReady and self.highWindow.IsReady 
            
