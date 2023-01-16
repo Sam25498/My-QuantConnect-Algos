@@ -73,3 +73,56 @@ class ForexAlgorithm(QCAlgorithm):
                     resistances.append(level)
         
         return resistances
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.macd = MovingAverageConvergenceDivergence(12,26,9)
+        self.rsi = RelativeStrengthIndex(14)
+        
+        self.macdWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.macd, timedelta(days=1))
+        self.macd.Updated += self.MacdUpdated                    #Updating those two values
+        
+        self.rsiWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the slow SMA indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.rsi, timedelta(days=1))
+        self.rsi.Updated += self.RsiUpdated                    #Updating those two values
+        
+        #self.closeWindow = RollingWindow[float](200)
+        self.lowWindow = RollingWindow[float](100)
+        self.highWindow = RollingWindow[float](100)
+        #self.lowWindowD = RollingWindow[float](40)
+        #self.highWindowD = RollingWindow[float](40)
+        
+        #Add consolidator to track rolling low prices..
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.LowUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
+        
+        
+        #Add consolidator to track rolling high prices
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.HighUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
+    def MacdUpdated(self, sender, updated):
+        '''Event holder to update the MACD Rolling Window values'''
+        if self.macd.IsReady:
+            self.macdWindow.Add(updated)
+
+    def RsiUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.rsi.IsReady:
+            self.rsiWindow.Add(updated)
+            
+    def LowUpdated(self, sender, bar):
+        '''Event holder to update the 4 hour low Rolling Window values'''
+        self.lowWindow.Add(bar.Low)
+        
+    def HighUpdated(self, sender, bar):
+        '''Event holder to update the 4 hour high Rolling Window values'''
+        self.highWindow.Add(bar.High)
+        
+  
+    @property 
+    def IsReady(self):
+           
