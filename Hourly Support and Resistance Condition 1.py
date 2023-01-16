@@ -217,7 +217,10 @@ class SymbolData:
         
         
         #Backtest Results FY2020
-        """$150K
+"""
+35
+trades
+$150K
 Capacity
 $11,503.32
 Equity
@@ -238,6 +241,8 @@ Volu
         """
 #Backtest Results FY2021
 """
+17
+trades
 $120K
 Capacity
 $10,073.59
@@ -256,3 +261,27 @@ $-151.07
 Unrealized
 $173,219.81
 Volume """
+
+#Backtest Results FY2022
+"""
+15
+trades
+$120K
+Capacity
+$9,901.75
+Equity
+-$0.00
+Fees
+$10,156.00
+Holdings
+$176.57
+Net Profit
+10.197%
+PSR
+-0.98 %
+Return
+$-287.84
+Unrealized
+$148,335.21
+Volume
+"""
