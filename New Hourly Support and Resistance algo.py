@@ -22,7 +22,7 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
         self.Data = {}
 
         #for self.ticker in self.tickers:
-        symbol = self.AddForex(self.ticker, Resolution.Daily, Market.Oanda).Symbol
+        symbol = self.AddForex(self.ticker, Resolution.Hour, Market.Oanda).Symbol
         self.Data[symbol] = SymbolData(self, symbol)
          
         self.tolerance = 0.0025
@@ -31,7 +31,7 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
         self.stopLossLevel = -0.05 # stop loss percentage 
         self.stopProfitLevel = 0.01# stop profit percentage
             
-        self.SetWarmUp(50, Resolution.Daily)
+        self.SetWarmUp(50, Resolution.Hour)
         
         
     def OnData(self, data):
@@ -197,11 +197,11 @@ class SymbolData:
         self.rsi = RelativeStrengthIndex(14)
         
         self.macdWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the fast MACD indicator, takes two values
-        algorithm.RegisterIndicator(symbol, self.macd, timedelta(days=1))
+        algorithm.RegisterIndicator(symbol, self.macd, timedelta(hours=1))
         self.macd.Updated += self.MacdUpdated                    #Updating those two values
         
         self.rsiWindow = RollingWindow[IndicatorDataPoint](2)   #setting the Rolling Window for the slow SMA indicator, takes two values
-        algorithm.RegisterIndicator(symbol, self.rsi, timedelta(days=1))
+        algorithm.RegisterIndicator(symbol, self.rsi, timedelta(hours=1))
         self.rsi.Updated += self.RsiUpdated                    #Updating those two values
         
         #self.closeWindow = RollingWindow[float](200)
@@ -233,11 +233,11 @@ class SymbolData:
             self.rsiWindow.Add(updated)
             
     def LowUpdated(self, sender, bar):
-        '''Event holder to update the 4 hour low Rolling Window values'''
+        '''Event holder to update the 1 hour low Rolling Window values'''
         self.lowWindow.Add(bar.Low)
         
     def HighUpdated(self, sender, bar):
-        '''Event holder to update the 4 hour high Rolling Window values'''
+        '''Event holder to update the 1 hour high Rolling Window values'''
         self.highWindow.Add(bar.High)
         
   
