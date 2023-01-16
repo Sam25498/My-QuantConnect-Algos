@@ -5,8 +5,8 @@ from datetime import datetime,timedelta
 import numpy as np
 
 Macdlong = None
-AboveSupport = None
-BelowResistance = None
+BelowSupport = None
+AboveResistance = None
 
 
 class SwimmingFluorescentPinkShark(QCAlgorithm):
@@ -118,7 +118,7 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
                 AboveResistance = current_price > nextResistanceLevel * self.toleranceR
                 #tolerance = will be dependent on the minimum number of pips before a r/s level
                 
-                if RSI > 50 and Macdlong and BelowResistance:
+                if RSI > 50 and Macdlong and AboveResistance:
                     self.SetHoldings(symbol, 1)
                     # get buy-in price for trailing stop loss/profit
                     self.buyInPrice = current_price
@@ -126,7 +126,7 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
                     self.isLong = True
                     self.Log(f"{self.Time} Entered Long Position at {current_price}")
                         
-                if RSI < 50  and not Macdlong and AboveSupport: 
+                if RSI < 50  and not Macdlong and BelowSupport: 
                        
                      self.SetHoldings(symbol, -1)
                     # get sell-in price for trailing stop loss/profit
