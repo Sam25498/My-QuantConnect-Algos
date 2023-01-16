@@ -213,4 +213,46 @@ class SymbolData:
     def IsReady(self):
         return self.lowWindow.IsReady and self.highWindow.IsReady 
            
-
+        
+        
+        
+        #Backtest Results FY2020
+        """$150K
+Capacity
+$11,503.32
+Equity
+-$0.00
+Fees
+$11,413.00
+Holdings
+$1,360.90
+Net Profit
+69.464%
+PSR
+15.03 %
+Return
+$56.50
+Unrealized
+$373,992.05
+Volu
+        """
+#Backtest Results FY2021
+"""
+$120K
+Capacity
+$10,073.59
+Equity
+-$0.00
+Fees
+$10,195.00
+Holdings
+$236.11
+Net Profit
+14.507%
+PSR
+0.74 %
+Return
+$-151.07
+Unrealized
+$173,219.81
+Volume """
