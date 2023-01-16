@@ -126,7 +126,7 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
                         
                 if RSI < 50  and not Macdlong and BelowSupport: 
                        
-                     self.SetHoldings(symbol, -1)
+                    self.SetHoldings(symbol, -1)
                     # get sell-in price for trailing stop loss/profit
                     self.sellInPrice = current_price
                     # entered short position
