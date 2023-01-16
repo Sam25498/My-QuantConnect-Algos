@@ -46,3 +46,30 @@ class ForexAlgorithm(QCAlgorithm):
                 self.SetHoldings(self.Symbol, 1)  # Execute a buy trade
 
         self.previous_bar = bar  # Store the previous bar for later reference
+        
+    def NextResistance(self, window, variation = 0.005, h = 3):
+        
+        series = window
+        resistances = []
+        
+        maxima = []
+        
+        # finding maxima and minima by looking for hills/troughs locally
+        for i in range(h, series.Size-h):
+            if series[i] > series[i-1] and series[i] > series[i+1]  and series[i+1] > series[i+2] and series[i-1] > series[i-2] :
+                maxima.append(series[i])
+       
+        # identifying maximas which are resistances
+        for m in maxima:
+            r = m * variation
+            # maxima which are near each other
+            commonLevel = [x for x in maxima if x > m - r and x < m + r]
+            # if 2 or more maxima are clustered near an area, it is a resistance
+            if len(commonLevel) > 1:
+                # we pick the highest maxima if the cluster as our resistance
+                level = max(commonLevel)
+
+                 if level not in resistances:
+                    resistances.append(level)
+        
+        return resistances
