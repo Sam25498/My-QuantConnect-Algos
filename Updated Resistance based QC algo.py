@@ -11,6 +11,7 @@ import pandas as pd
 #from QuantConnect.data.market import TradeBar
 #from QuantConnect.data.custom import Forex
 #from QuantConnect.Indicators import CandlestickPatterns
+from QuantConnect.Indicators.CandlestickPatterns import Engulfing
 
 class ForexAlgorithm(QCAlgorithm):
 
