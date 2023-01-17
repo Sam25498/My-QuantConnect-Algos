@@ -189,3 +189,35 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
                         
                     
   
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        #self.closeWindow = RollingWindow[float](200)
+        self.lowWindow = RollingWindow[float](200)
+        self.highWindow = RollingWindow[float](200)
+        #self.lowWindowD = RollingWindow[float](40)
+        #self.highWindowD = RollingWindow[float](40)
+        
+        #Add consolidator to track rolling low prices..
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.LowUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator) 
+        
+        #Add consolidator to track rolling high prices
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.HighUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+
+            
+    def LowUpdated(self, sender, bar):
+        '''Event holder to update the 1 hour low Rolling Window values'''
+        self.lowWindow.Add(bar.Low)
+        
+    def HighUpdated(self, sender, bar):
+        '''Event holder to update the 1 hour high Rolling Window values'''
+        self.highWindow.Add(bar.High)
+        
+  
+    @property 
+    def IsReady(self):
+        return self.lowWindow.IsReady and self.highWindow.IsReady 
+         
