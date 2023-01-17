@@ -268,4 +268,18 @@ Unrealized
 $176,343.01
 Volume
 """
+
+#Backtest Results FY2022
+"""
+Sharpe Ratio 0.191
+Total Trades 19
+Average Win 1.07%
+Average Loss -4.87%
+Compounding Annual Return 1.542%
+Drawdown 7.900%
+Expectancy 0.085
+Net Profit 1.536% 
+Loss Rate 11%
+Win Rate89%
+Profit-Loss Ratio0.22 """
          
