@@ -73,4 +73,63 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
             
 
         
+            current_low = symbolData.lowWindow[0]
+            current_high = symbolData.highWindow[0]
+            previous_low = symbolData.lowWindow[1]
+            previous_high = symbolData.highWindow[1] 
+
+            if self.Portfolio[symbol].Invested:
+                
+                if self.isLong:  
+                    condStopProfit = (current_price - self.buyInPrice)/self.buyInPrice > self.stopProfitLevel
+                    condStopLoss = (current_price - self.buyInPrice)/self.buyInPrice < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Profit at {current_price}")
+                        
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Loss at {current_price}")
+                else:
+                    condStopProfit = (self.sellInPrice - current_price)/self.sellInPrice > self.stopProfitLevel
+                    condStopLoss = (self.sellInPrice - current_price)/self.sellInPrice < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Profit at {current_price}")
+                        
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Loss at {current_price}")
+            
+            
+            
+            if not self.Portfolio[symbol].Invested:
+                
+            
+               
+                BelowSupport = current_price < nextSupportLevel# * self.toleranceS
+                AboveResistance = current_price > nextResistanceLevel #* self.toleranceR
+                price_retestedB = current_low <= nextResistanceLevel and current_low < previous_low
+                price_retestedS = current_high >= nextSupportLevel and current_high > previous_high
+                #tolerance = will be dependent on the minimum number of pips before a r/s level
+                
+                if AboveResistance and price_retestedB:
+                    self.SetHoldings(symbol, 1)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if BelowSupport and price_retestedS: 
+                       
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                    
+                    
+
         
