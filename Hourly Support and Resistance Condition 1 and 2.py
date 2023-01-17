@@ -247,26 +247,17 @@ Volume
 
 #Backtest Results FY2021
 """
-17
-Trades
-$1.2M
-Capacity
-$10,874.15
-Equity
--$0.00
-Fees
-$10,823.00
-Holdings
-$852.67
-Net Profit
-56.716%
-PSR
-8.74 %
-Return
-$22.68
-Unrealized
-$176,343.01
-Volume
+Sharpe Ratio 1.176
+Total Trades 17
+Average Win 1.03%
+Average Loss 0%
+Compounding Annual Return 8.767%
+Drawdown 4.900%
+Expectancy 0
+Net Profit 8.742%
+Loss Rate 0%
+Win Rate 100%
+Profit-Loss Ratio 0
 """
 
 #Backtest Results FY2022
