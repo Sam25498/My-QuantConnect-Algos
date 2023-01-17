@@ -244,4 +244,28 @@ Unrealized
 $239,573.29
 Volume
 """
+
+#Backtest Results FY2021
+"""
+17
+Trades
+$1.2M
+Capacity
+$10,874.15
+Equity
+-$0.00
+Fees
+$10,823.00
+Holdings
+$852.67
+Net Profit
+56.716%
+PSR
+8.74 %
+Return
+$22.68
+Unrealized
+$176,343.01
+Volume
+"""
          
