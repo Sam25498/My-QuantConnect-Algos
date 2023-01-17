@@ -220,4 +220,28 @@ class SymbolData:
     @property 
     def IsReady(self):
         return self.lowWindow.IsReady and self.highWindow.IsReady 
+    
+    #Backtest Results FY2020
+"""
+23
+trades
+$1.2M
+Capacity
+$10,128.21
+Equity
+-$0.00
+Fees
+$10,545.00
+Holdings
+$561.15
+Net Profit
+16.168%
+PSR
+1.28 %
+Return
+$-468.17
+Unrealized
+$239,573.29
+Volume
+"""
          
