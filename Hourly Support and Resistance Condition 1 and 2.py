@@ -223,26 +223,17 @@ class SymbolData:
     
     #Backtest Results FY2020
 """
-23
-trades
-$1.2M
-Capacity
-$10,128.21
-Equity
--$0.00
-Fees
-$10,545.00
-Holdings
-$561.15
-Net Profit
-16.168%
-PSR
-1.28 %
-Return
-$-468.17
-Unrealized
-$239,573.29
-Volume
+Sharpe Ratio 0.178
+Total Trades 23
+Average Win 1.11%
+Average Loss -5.40%
+Compounding Annual Return 1.282%
+Drawdown 7.600%
+Expectancy 0.096
+Net Profit 1.282%
+Loss Rate 9%
+Win Rate 91%
+Profit-Loss Ratio 0.21
 """
 
 #Backtest Results FY2021
