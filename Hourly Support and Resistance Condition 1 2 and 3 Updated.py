@@ -219,7 +219,22 @@ class SymbolData:
   
     @property 
     def IsReady(self):
-        return self.lowWindow.IsReady and self.highWindow.IsReady                     
+        return self.lowWindow.IsReady and self.highWindow.IsReady          
+    
+    #BacktestResults FY2020
+    """
+    Sharpe Ratio 0.563
+    Total Trades 21
+    Average Win 1.07%
+    Average Loss -5.22%
+    Compounding Annual Return 4.517%
+    Drawdown 10.100%
+    Expectancy 0.084
+    Net Profit 4.517%
+    Loss Rate 10%
+    Win Rate 90%
+    Profit-Loss Ratio 0.20
+    """
 
            
 
