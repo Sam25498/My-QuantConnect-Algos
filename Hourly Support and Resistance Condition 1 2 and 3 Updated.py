@@ -250,4 +250,18 @@ Win Rate 0%
 Profit-Loss Ratio 0
 """
            
+ #BacktestResults FY2022
+"""
+Sharpe Ratio -0.533
+Total Trades 37
+Average Win 1.05%
+Average Loss -5.26%
+Compounding Annual Return -6.244%
+Drawdown 14.700%
+Expectancy -0.067
+Net Profit -6.223%
+Loss Rate 22%
+Win Rate 78%
+Profit-Loss Ratio 0.20
+"""
 
