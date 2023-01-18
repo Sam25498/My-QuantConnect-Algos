@@ -190,5 +190,43 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
         return supports
                         
                     
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        #self.closeWindow = RollingWindow[float](200)
+        self.lowWindow = RollingWindow[float](200)
+        self.highWindow = RollingWindow[float](200)
+        self.engulfing = Engulfing(symbol)
+        
+        #Add consolidator to track rolling low prices..
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.LowUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator) 
+        
+        #Add consolidator to track rolling high prices
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.HighUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
 
+        #Add consolidator to track engulfing Candlesticks    
+        algorithm.RegisterIndicator(symbol, self.engulfing, Resolution.Hour)
+        self.engulfing.Updated += self.EngulfingUpdated
+            
+    def LowUpdated(self, sender, bar):
+        '''Event holder to update the 1 hour low Rolling Window values'''
+        self.lowWindow.Add(bar.Low)
+        
+    def HighUpdated(self, sender, bar):
+        '''Event holder to update the 1 hour high Rolling Window values'''
+        self.highWindow.Add(bar.High)
+        
+    def EngulfingUpdated(self, sender, bar):
+        '''Event holder to update the 1 hour Engulfing Candle sticks'''
+
+        self.engulfing.Update(bar[symbol])
+        #if self.engulfing.IsReady:
+        #if self.engulfing.IsReady:
+            #indicator_value = self.engulfing.Current.Value
+  
+    @property 
+    def IsReady(self):
         return self.lowWindow.IsReady and self.highWindow.IsReady and self.engulfing.IsReady           
