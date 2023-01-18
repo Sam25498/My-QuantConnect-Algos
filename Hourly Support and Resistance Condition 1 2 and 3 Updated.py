@@ -235,6 +235,19 @@ class SymbolData:
     Win Rate 90%
     Profit-Loss Ratio 0.20
     """
-
+#BacktestResults FY2021
+"""
+Sharpe Ratio -1.116
+Total Trades 3
+Average Win 0%
+Average Loss -5.05%
+Compounding Annual Return -7.541%
+Drawdown 9.100%
+Expectancy -1
+Net Profit -7.521%
+Loss Rate 100%
+Win Rate 0%
+Profit-Loss Ratio 0
+"""
            
 
