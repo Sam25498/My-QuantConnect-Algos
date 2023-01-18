@@ -465,3 +465,17 @@ Loss Rate 17%
 Win Rate 83%
 Profit-Loss Ratio 0.20
 """
+#BacktestResults FY2021
+"""
+Sharpe Ratio -0.346
+Total Trades 9
+Average Win 1.08%
+Average Loss -5.04%
+Compounding Annual Return -2.465%
+Drawdown 6.100%
+Expectancy -0.089
+Net Profit -2.459%
+Loss Rate 25%
+Win Rate 75%
+Profit-Loss Ratio 0.21
+"""
