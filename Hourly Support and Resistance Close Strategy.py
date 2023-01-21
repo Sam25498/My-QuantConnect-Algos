@@ -188,3 +188,23 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
         return supports
                         
                     
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+             
+        self.closeWindow = RollingWindow[float](200)       
+        
+        #Add consolidator to track rolling close prices..
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+
+            
+    def CloseUpdated(self, sender, bar):
+        '''Event holder to update the 4 hour Close Rolling Window values'''
+        self.closeWindow.Add(bar.Close)
+   
+        
+  
+    @property 
+    def IsReady(self):
+        return  self.closeWindow.IsReady 
