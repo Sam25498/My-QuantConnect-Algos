@@ -87,7 +87,7 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
                 
                 if self.isLong:
                     
-     return self.macd.IsReady and self.rsi.IsReady and self.lowWindow.IsReady and self.highWindow.IsReady  
+     
                     condStopProfit = (current_price - self.buyInPrice)/self.buyInPrice > self.stopProfitLevel
                     condStopLoss = (current_price - self.buyInPrice)/self.buyInPrice < self.stopLossLevel
                     if condStopProfit:
