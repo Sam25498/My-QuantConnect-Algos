@@ -88,3 +88,32 @@ class FocusedYellowLemur(QCAlgorithm):
                     self.Log(f"{self.Time} Entered Short Position at {current_price}")
                         
                     
+class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.rsi = RelativeStrengthIndex(3) #Resolution.Hour
+        self.RsiWindow = RollingWindow[IndicatorDataPoint](2)
+        
+        #Generating 3-period RSI values of 4 hours Resolution
+        algorithm.RegisterIndicator(symbol, self.rsi, timedelta(hours=4))
+        self.rsi.Updated += self.RsiUpdated 
+        
+
+        self.closeWindow = RollingWindow[float](10)
+        
+        # Add consolidator to track rolling close prices
+        self.consolidator = QuoteBarConsolidator(timedelta(hours=4))
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+        
+
+    def RsiUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.rsi.IsReady:
+            self.RsiWindow.Add(updated)
+
+    def CloseUpdated(self, sender, bar):
+        '''Event holder to update the close Rolling Window values'''
+        self.closeWindow.Add(bar.Close)
+    @property 
+    def IsReady(self):
+        return self.rsi.IsReady and self.closeWindow.IsReady               
