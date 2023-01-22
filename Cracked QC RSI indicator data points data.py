@@ -232,5 +232,33 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
             rsi_list.append(rsi)
         return rsi_list#[::-1]
     
-                        
+ class SymbolData:
+    def __init__(self, algorithm, symbol):
+        self.rsi = RelativeStrengthIndex(14)
+        
+        self.rsiWindow = RollingWindow[IndicatorDataPoint](10)   #setting the Rolling Window for the slow SMA indicator, takes two values
+        algorithm.RegisterIndicator(symbol, self.rsi, timedelta(hours=1))
+        self.rsi.Updated += self.RsiUpdated                    #Updating those two valuesv
+             
+        self.closeWindow = RollingWindow[float](200)       
+        
+        #Add consolidator to track rolling close prices..
+        self.consolidator = QuoteBarConsolidator(1)
+        self.consolidator.DataConsolidated += self.CloseUpdated
+        algorithm.SubscriptionManager.AddConsolidator(symbol, self.consolidator)
+
+            
+    def CloseUpdated(self, sender, bar):
+        '''Event holder to update the 4 hour Close Rolling Window values'''
+        self.closeWindow.Add(bar.Close)
+    
+    def RsiUpdated(self, sender, updated):
+        '''Event holder to update the RSI Rolling Window values'''
+        if self.rsi.IsReady:
+            self.rsiWindow.Add(updated)
+        
+  
+    @property 
+    def IsReady(self):
+        return  self.closeWindow.IsReady  and self.rsi.IsReady                       
                     
