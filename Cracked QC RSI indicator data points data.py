@@ -33,4 +33,115 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
             
         self.SetWarmUp(50, Resolution.Hour)
         
+      def OnData(self, data):
         
+        #if self.IsWarmingUp: #Data to warm up the algo is being collected.
+           # return
+        
+        for symbol, symbolData in self.Data.items(): #Return the dictionary's key-value pairs:
+            if not (data.ContainsKey(symbol) and data[symbol] is not None and symbolData.IsReady):
+                continue
+            
+            if self.IsWarmingUp or not all([symbolData.IsReady for symbolData in self.Data.values()]):
+                return
+            
+            
+            current_price = data[symbol].Close #symbolData.closeWindow[0] #
+            RSI = symbolData.rsi.Current.Value
+
+
+            
+           
+            
+            supports = self.NextSupport(symbolData.closeWindow)
+            resistances = self.NextResistance(symbolData.closeWindow)
+            rsiList = self.calculate_rsi(symbolData.closeWindow)
+
+            nlist = symbolData.rsiWindow #list(symbolData.rsiWindow)
+            indlist = []
+            for i in nlist:
+                indlist.append(i.Value)
+
+            self.Log(f"current_RSI:  {rsiList[0]}, RSI: {RSI} , RSIList: {indlist}, RSIList 1: {indlist[0]}") #, RSIList: {rsiList}v
+
+            #supports2 = self.NextSupport(symbolData.lowWindowD)
+            #resistances2 = self.NextResistance(symbolData.highWindowD)
+            
+            #Combine the 4hour Supports levels with the Daily supports
+            #supports = supports1 + supports2
+            #resistances = resistances1 + resistances2
+            
+            #self.Log(f"Symbol: {symbol.Value} , Supports: {supports} , Resistances: {resistances}")
+            
+           
+            #Filtering through the list of supports to be able to get the next support level.
+            supports = sorted(supports, key= lambda x:x < current_price, reverse = True)
+            
+            #Filtering through the list of resistances to be able to get the next resistance level.
+            resistances = sorted(resistances, key= lambda x:x > current_price, reverse = False)
+            
+            #self.Log(f"Symbol: {symbol.Value} , Supports: {supports} , Resistances: {resistances}")
+            
+            #Getting the next support level
+            nextSupportLevel = supports[0]
+            
+            #Getting the next support level
+            nextResistanceLevel = resistances[0]
+            
+            #if price is close to a support or resistance print or log  that resistance as well as that price
+            #self.Log(f"Symbol: {symbol.Value} , nextSupportLevel: {nextSupportLevel} , nextResistanceLevel: {nextResistanceLevel} ,current price:{current_price}")
+            
+            #s = np.mean(symbolData.highWindow) - np.mean(symbolData.lowWindow)
+            if self.Portfolio[symbol].Invested:
+                
+                if self.isLong:
+                    
+                    condStopProfit = (current_price - self.buyInPrice)/self.buyInPrice > self.stopProfitLevel
+                    condStopLoss = (current_price - self.buyInPrice)/self.buyInPrice < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Profit at {current_price}")
+                        
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Long Position Stop Loss at {current_price}")
+                else:
+                    condStopProfit = (self.sellInPrice - current_price)/self.sellInPrice > self.stopProfitLevel
+                    condStopLoss = (self.sellInPrice - current_price)/self.sellInPrice < self.stopLossLevel
+                    if condStopProfit:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Profit at {current_price}")
+                        
+                    if condStopLoss:
+                        self.Liquidate(symbol)
+                        self.Log(f"{self.Time} Short Position Stop Loss at {current_price}")
+            
+            
+            
+            if not self.Portfolio[symbol].Invested:
+                
+            
+               
+                AboveSupport = current_price > nextSupportLevel * self.toleranceS
+                BelowResistance = current_price < nextResistanceLevel * self.toleranceR
+                #tolerance = will be dependent on the minimum number of pips before a r/s level
+                
+                if BelowResistance:
+                    self.SetHoldings(symbol, 1)
+                    # get buy-in price for trailing stop loss/profit
+                    self.buyInPrice = current_price
+                    # entered long position
+                    self.isLong = True
+                    self.Log(f"{self.Time} Entered Long Position at {current_price}")
+                        
+                if AboveSupport: 
+                       
+                    self.SetHoldings(symbol, -1)
+                    # get sell-in price for trailing stop loss/profit
+                    self.sellInPrice = current_price
+                    # entered short position
+                    self.isLong = False
+                    self.Log(f"{self.Time} Entered Short Position at {current_price}")
+                    
+                    
+      
