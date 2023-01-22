@@ -199,3 +199,38 @@ class SwimmingFluorescentPinkShark(QCAlgorithm):
                     
         return supports
 
+    def calculate_rsi(self, window):
+        series = window
+        # Initialize variables
+        gain = 0
+        loss = 0
+        rsi_list = []
+        # Iterate through the data to calculate the gain and loss
+        for i in range(1, series.Size):
+            if series[i] > series[i-1]:
+                gain += series[i] - series[i-1]
+            else:
+                loss += series[i-1] - series[i]
+        # Calculate the relative strength
+        avg_gain = gain / 14
+        avg_loss = loss / 14
+
+        avg_loss = round(avg_loss, 10)
+        rs = avg_gain / avg_loss
+        # Calculate the RSI
+        rsi = 100 - (100 / (1 + rs))
+        rsi_list.append(rsi)
+        for i in range(14, series.Size):
+            if series[i] > series[i-1]:
+                avg_gain = ((avg_gain * 13) + (series[i] - series[i-1])) / 14
+                avg_loss = ((avg_loss * 13) + 0) / 14
+            else:
+                avg_gain = ((avg_gain * 13) + 0) / 14
+                avg_loss = ((avg_loss * 13) + (series[i-1] - series[i])) / 14
+            rs = avg_gain / avg_loss
+            rsi = 100 - (100 / (1 + rs))
+            rsi_list.append(rsi)
+        return rsi_list#[::-1]
+    
+                        
+                    
