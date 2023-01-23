@@ -40,3 +40,13 @@ print(phFound)
 #[ True  True  True  True  True  True  True  True  True  True]
 
 
+def count_bars_since_condition(condition, dt):
+		count = 0
+		condition_met = False
+		for bar in dt:
+				if condition(bar):
+						condition_met = True
+						count = 0
+				elif condition_met:
+						count += 1
+		return count
