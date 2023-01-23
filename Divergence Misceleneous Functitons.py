@@ -24,3 +24,13 @@ print(pivot_low_points(RSIList))
 #Output
 #   [nan nan nan nan nan nan nan nan nan nan]
 #[nan nan nan nan nan nan nan nan nan nan]
+data = RSIList
+lbL = 5
+lbR = 5
+
+import numpy as np
+plFound = np.isnan(pivot_low_points(data))
+phFound = np.isnan(pivot_high_points(data))
+
+print(plFound)
+print(phFound)
