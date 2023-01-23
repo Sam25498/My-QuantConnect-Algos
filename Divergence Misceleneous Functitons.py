@@ -50,3 +50,10 @@ def count_bars_since_condition(condition, dt):
 				elif condition_met:
 						count += 1
 		return count
+
+print(count_bars_since_condition(plFound[1], data))
+def InRange(self, cond, data):
+		bars = count_bars_since_condition(cond, data)
+		return rangeLower <= bars and bars <= rangeUpper
+		
+print(InRange(plFound[1], data ))
