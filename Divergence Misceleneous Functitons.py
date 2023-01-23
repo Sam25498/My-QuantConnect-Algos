@@ -7,3 +7,12 @@ def pivot_high_points(source, leftbars=5, rightbars=5):
             pivot_highs[i] = source[i]
     return pivot_highs
     
+    
+def pivot_low_points(source, leftbars=5, rightbars=5):
+    pivot_lows = np.empty(len(source))
+    pivot_lows[:] = np.nan
+    for i in range(leftbars, len(source) - rightbars):
+        if (source[i-leftbars:i].min() <= source[i] <= source[i+1:i+rightbars+1].min()):
+            pivot_lows[i] = source[i]
+    return pivot_lows
+
