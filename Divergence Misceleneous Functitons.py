@@ -57,3 +57,17 @@ def InRange(self, cond, data):
 		return rangeLower <= bars and bars <= rangeUpper
 		
 print(InRange(plFound[1], data ))
+
+[nan nan nan nan nan nan nan nan nan nan]
+[nan nan nan nan nan nan nan nan nan nan]
+
+Traceback (most recent call last):
+  File "main.py", line 46, in <module>
+    print(count_bars_since_condition(plFound[1], data))
+  File "main.py", line 39, in count_bars_since_condition
+    if condition(bar):
+TypeError: 'numpy.bool_' object is not callable
+
+
+** Process exited - Return Code: 1 **
+Press Enter to exit terminalv
