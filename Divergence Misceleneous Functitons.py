@@ -20,3 +20,7 @@ def pivot_low_points(source, leftbars=5, rightbars=5):
 RSIList = [54.54702219621018, 53.49885270867954, 55.81908920231306, 56.543628819671135, 54.91334203757303, 53.28602298570815, 50.88206217227009, 58.75574829911107, 67.08791964978705, 67.93028602435466]
 print(pivot_high_points(RSIList))
 print(pivot_low_points(RSIList))
+
+#Output
+#   [nan nan nan nan nan nan nan nan nan nan]
+#[nan nan nan nan nan nan nan nan nan nan]
