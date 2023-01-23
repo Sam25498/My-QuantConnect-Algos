@@ -32,5 +32,11 @@ import numpy as np
 plFound = np.isnan(pivot_low_points(data))
 phFound = np.isnan(pivot_high_points(data))
 
-print(plFound)
+print(plFound) #
 print(phFound)
+
+#Output
+#[ True  True  True  True  True  True  True  True  True  True]
+#[ True  True  True  True  True  True  True  True  True  True]
+
+
