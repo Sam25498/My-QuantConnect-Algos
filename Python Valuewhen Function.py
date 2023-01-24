@@ -17,3 +17,13 @@ hidden_bull_signals = (rsi < ta.valuewhen(pivot_lows, rsi, 1)) & (ta.barssince(p
 regular_bear_signals = (rsi < ta.valuewhen(pivot_highs, rsi, 1)) & (ta.barssince(pivot_highs) >= rangeLower) & (ta.barssince(pivot_highs) <= rangeUpper) & (data["high"] > ta.valuewhen(pivot_highs, data["high"], 1))
 hidden_bear_signals = (rsi > ta.valuewhen(pivot_highs, rsi, 1)) & (ta.barssince(pivot_highs) >= rangeLower) & (ta.barssince(pivot_highs) <= rangeUpper) & (data["high"] < ta.valuewhen(pivot_highs, data["high"], 1))
 
+# Plot the signals
+if plotBull:
+    data["regular_bull_signals"] = regular_bull_signals
+if plotHiddenBull:
+    data["hidden_bull_signals"] = hidden_bull_signals
+if plotBear:
+    data["regular_bear_signals"] = regular_bear_signals
+if plotHiddenBear:
+    data["hidden_bear_signals"] = hidden_bear_signals
+    
