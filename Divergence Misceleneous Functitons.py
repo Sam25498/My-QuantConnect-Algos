@@ -71,3 +71,30 @@ TypeError: 'numpy.bool_' object is not callable
 
 ** Process exited - Return Code: 1 **
 Press Enter to exit terminalv
+##########################################################################################################
+####Corrected Error Message
+
+def count_bars_since_condition(condition, dt):
+		count = 0
+		condition_met = False
+		for bar in dt:
+				if condition(bar):
+						condition_met = True
+						count = 0
+				elif condition_met:
+						count += 1
+		return count
+
+data = [{'Open':1.1,'Close':1.2,'High':1.3,'Low':1.0},
+        {'Open':1.2,'Close':1.3,'High':1.4,'Low':1.1},
+        {'Open':1.3,'Close':1.2,'High':1.5,'Low':1.2}
+       ]		
+def condition(bar):
+    return bar['Open'] > bar['Close']
+    
+print(count_bars_since_condition(condition, data))
+
+#Output: 0
+
+
+
