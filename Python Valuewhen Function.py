@@ -1,3 +1,7 @@
+"""
+Sure, here's an example of how you might implement the same functionality in Python using the ta library, which is a technical analysis 
+library for financial data:
+"""
 import ta
 import pandas as pd
 
