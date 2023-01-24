@@ -27,3 +27,8 @@ if plotBear:
 if plotHiddenBear:
     data["hidden_bear_signals"] = hidden_bear_signals
     
+# Plotting the data or signals
+import matplotlib.pyplot as plt
+plt.plot(data["close"])
+plt.plot(data["regular_bull_signals"], 'go', markersize=5)
+plt.plot(data["hidden_bull_signals"], 'yo', markersize=5)
