@@ -32,3 +32,6 @@ import matplotlib.pyplot as plt
 plt.plot(data["close"])
 plt.plot(data["regular_bull_signals"], 'go', markersize=5)
 plt.plot(data["hidden_bull_signals"], 'yo', markersize=5)
+plt.plot(data["regular_bear_signals"], 'ro', markersize=5)
+plt.plot(data["hidden_bear_signals"], 'mo', markersize=5)
+plt.show()
