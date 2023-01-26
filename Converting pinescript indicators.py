@@ -93,3 +93,28 @@ def nz(x, y=None):
     return x
 
 
+def barssince(condition, occurrence=0):
+    '''
+    Impl of barssince
+
+    RETURNS
+    Number of bars since condition was true.
+    REMARKS
+    If the condition has never been met prior to the current bar, the function returns na.
+    '''
+    cond_len = len(condition)
+    occ = 0
+    since = 0
+    res = float('nan')
+    while cond_len - (since+1) >= 0:
+        cond = condition[cond_len-(since+1)]
+        # check for nan cond != cond == True when nan
+        if cond and not cond != cond:
+            if occ == occurrence:
+                res = since
+                break
+            occ += 1
+        since += 1
+    return res
+
+
