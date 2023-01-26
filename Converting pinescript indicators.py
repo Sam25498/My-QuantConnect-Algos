@@ -1,4 +1,12 @@
-ef line2arr(line, size=-1):
+"""
+conditions
+to use methods like barssince, valuewhen from pinescript, which allows conditions like: setupCountUp == self.p.setup_bars the easiest method I found 
+is to use numpy for this.
+
+convert a line to a numpy array (using get(size=SIZE) to not work on complete line but only a defined range of data)
+"""
+
+def line2arr(line, size=-1):
     if size <= 0:
         return np.array(line.array)
     else:
