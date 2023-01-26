@@ -18,3 +18,19 @@ def nz(x, y=None):
         return 0
     return x
 
+def barssince(condition, occurrence=0):
+    cond_len = len(condition)
+    occ = 0
+    since = 0
+    res = float('nan')
+    while cond_len - (since+1) >= 0:
+        cond = condition[cond_len-(since+1)]
+        if cond and not cond != cond:
+            if occ == occurrence:
+                res = since
+                break
+            occ += 1
+        since += 1
+    return res
+
+
