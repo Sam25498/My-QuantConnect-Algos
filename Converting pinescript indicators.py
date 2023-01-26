@@ -13,7 +13,7 @@ def line2arr(line, size=-1):
         return np.array(line.get(size=size))
     
     
-    
+ """provide methods which works as methods from pinescript: so I wrote the methods I needed."""   
 def na(val):
     return val != val
 
