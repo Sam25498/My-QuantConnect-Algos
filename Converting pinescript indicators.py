@@ -48,3 +48,48 @@ def valuewhen(condition, source, occurrence=0):
     if since is not None:
         res = source[-(since+1)]
     return res    
+#################################################################################
+############   Code with Explanation    ####################
+
+import numpy as np
+
+
+def line2arr(line, size=-1):
+    '''
+    Creates an numpy array from a backtrader line
+
+    This method wraps the lines array in numpy. This can
+    be used for conditions.
+    '''
+    if size <= 0:
+        return np.array(line.array)
+    else:
+        return np.array(line.get(size=size))
+
+
+def na(val):
+    '''
+    RETURNS
+    true if x is not a valid number (x is NaN), otherwise false.
+    '''
+    return val != val
+
+
+def nz(x, y=None):
+    '''
+    RETURNS
+    Two args version: returns x if it's a valid (not NaN) number, otherwise y
+    One arg version: returns x if it's a valid (not NaN) number, otherwise 0
+    ARGUMENTS
+    x (val) Series of values to process.
+    y (float) Value that will be inserted instead of all NaN values in x series.
+    '''
+    if isinstance(x, np.generic):
+        return x.fillna(y or 0)
+    if x != x:
+        if y is not None:
+            return y
+        return 0
+    return x
+
+
