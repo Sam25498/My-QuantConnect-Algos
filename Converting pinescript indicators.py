@@ -9,3 +9,12 @@ ef line2arr(line, size=-1):
 def na(val):
     return val != val
 
+def nz(x, y=None):
+    if isinstance(x, np.generic):
+        return x.fillna(y or 0)
+    if x != x:
+        if y is not None:
+            return y
+        return 0
+    return x
+
