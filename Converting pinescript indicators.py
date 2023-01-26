@@ -34,3 +34,9 @@ def barssince(condition, occurrence=0):
     return res
 
 
+def valuewhen(condition, source, occurrence=0):
+    res = float('nan')
+    since = barssince(condition, occurrence)
+    if since is not None:
+        res = source[-(since+1)]
+    return res    
