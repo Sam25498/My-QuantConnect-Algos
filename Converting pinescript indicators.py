@@ -118,3 +118,16 @@ def barssince(condition, occurrence=0):
     return res
 
 
+def valuewhen(condition, source, occurrence=0):
+    '''
+    Impl of valuewhen
+    + added occurrence
+
+    RETURNS
+    Source value when condition was true
+    '''
+    res = float('nan')
+    since = barssince(condition, occurrence)
+    if since is not None:
+        res = source[-(since+1)]
+    return res
