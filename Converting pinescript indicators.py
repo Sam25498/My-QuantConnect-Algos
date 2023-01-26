@@ -3,3 +3,9 @@ ef line2arr(line, size=-1):
         return np.array(line.array)
     else:
         return np.array(line.get(size=size))
+    
+    
+    
+def na(val):
+    return val != val
+
