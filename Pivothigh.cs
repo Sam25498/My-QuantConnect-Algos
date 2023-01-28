@@ -68,3 +68,4 @@ namespace MachinaTrader.Indicators
 			return result;
 		}
 	}
+}
