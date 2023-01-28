@@ -47,4 +47,24 @@ namespace MachinaTrader.Indicators
 					}
 
 
-}
+
+                    // If it's a pivot
+					if (isPivot)
+						result.Add(valueToCheck.High);
+					else
+						result.Add(null);
+				}
+				else
+				{
+					result.Add(null);
+				}
+			}
+
+            if (fillNullValues)
+            {
+                return FillPivotNulls(result);
+            }
+
+			return result;
+		}
+	}
