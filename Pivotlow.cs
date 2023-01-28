@@ -84,4 +84,51 @@ namespace MachinaTrader.Indicators
 					nullCounter += 1;
 				}
 			}
+			var finalList = new List<decimal?>();
+			var isFirst = true;
 
+			for (int i = 0; i < values.Count; i++)
+			{
+				if (isFirst)
+				{
+					for (int j = 0; j < values[i].Item2; j++)
+						finalList.Add(null);
+
+					finalList.Add(values[i].Item1);
+
+					isFirst = false;
+				}
+				else
+				{
+					var current = values[i];
+					var previous = values[i - 1];
+					var count = current.Item2;
+
+					for (int x = 1; x <= count; x++)
+					{
+						if (current.Item1 > previous.Item1)
+						{
+							var amountToUse = (current.Item1 - previous.Item1) / (count + 1);
+							finalList.Add(Math.Round(previous.Item1 + (amountToUse * x), 8));
+						}
+						else
+						{
+							var amountToUse = (previous.Item1 - current.Item1) / (count + 1);
+							finalList.Add(Math.Round(previous.Item1 - (amountToUse * x), 8));
+						}
+					}
+
+					finalList.Add(current.Item1);
+				}
+			}
+
+			var finalCount = finalList.Count;
+			for (int i = 0; i < result.Count - finalCount; i++)
+			{
+				finalList.Add(null);
+			}
+
+			return finalList;
+		}
+	}
+}
