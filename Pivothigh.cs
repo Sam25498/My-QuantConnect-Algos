@@ -23,3 +23,12 @@ namespace MachinaTrader.Indicators
 				var subSet = source.Skip(i - barsLeft - barsRight).Take(barsLeft + barsRight + 1).ToList();
 				var valueToCheck = subSet[barsLeft];
 
+				// Check if the [barsLeft] bars left of what we're checking all have lower highs or equal
+				for (int leftPivot = 0; leftPivot < barsLeft; leftPivot++)
+				{
+					if (subSet[leftPivot].High > valueToCheck.High)
+					{
+						isPivot = false;
+						break;
+					}
+				}
