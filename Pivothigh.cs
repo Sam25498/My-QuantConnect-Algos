@@ -32,3 +32,19 @@ namespace MachinaTrader.Indicators
 						break;
 					}
 				}
+
+                // If it's still a pivot by this point, carry on checking the right side...
+				if (isPivot)
+				{
+					// If the [barsRight] right side all have lower highs, it's a pivot!
+					for (int rightPivot = barsLeft + 1; rightPivot < subSet.Count; rightPivot++)
+					{
+						if (subSet[rightPivot].High >= valueToCheck.High)
+						{
+							isPivot = false;
+							break;
+						}
+					}
+
+
+}
