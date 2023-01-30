@@ -93,5 +93,9 @@ def fill_pivot_nulls(result: List[Optional[float]]) -> List[Optional[float]]:
     
 print(pivot_low(Candle))
 #Output: [None, None, None, None, None, None, None, 50.88206217227009, None, None, None, None, None, None, None, None, None, None, None, None, None, 61.09119571893404, None, None, None, None, None, 60.23131566478151, None, None, None, None, None, 64.29272574088958, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+print(pivot_high(Candle))
+#Output: [None, None, None, None, None, None, None, None, None, None, None, None, None, 82.36290879038326, None, None, None, None, None, 72.12639096834278, None, None, None, None, None, None, None, None, None, None, None, 69.33634520296228, None, None, None, None, None, 73.16599131104705, None, None, None, None, None, None, None, None, None, None, None, None]
+
+
 
 
