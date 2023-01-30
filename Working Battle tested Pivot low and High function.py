@@ -107,7 +107,9 @@ plFound = pd.isnull(a)
 phFound = pd.isnull(b)
 
 print(plFound)
-print(phFound)
+#Output: [ True  True  True  True  True  True  True False  True  True  True  True True  True  True  True  True  True  True  True  True False  True  True True  True  True False  True  True  True  True  True False  True  True True  True  True  True  True  True  True  True  True  True  True  True  True  True]
 
+print(phFound)
+#Output: [ True  True  True  True  True  True  True  True  True  True  True  True  True False  True  True  True  True  True False  True  True  True  True  True  True  True  True  True  True  True False  True  True  True  True  True False  True  True  True  True  True  True  True  True  True  True  True  True]
 
 
