@@ -71,7 +71,7 @@ def fill_pivot_nulls(result: List[Optional[float]]) -> List[Optional[float]]:
             null_counter += 1
     final_list = []
     is_first = True
-        for i in range(len(values)):
+    for i in range(len(values)):
         if is_first:
             for j in range(values[i][1]):
                 final_list.append(None)
