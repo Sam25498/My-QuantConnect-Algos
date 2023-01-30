@@ -92,6 +92,48 @@ def fill_pivot_nulls(result: List[Optional[float]]) -> List[Optional[float]]:
                     final_list.append(previous[0])
     return final_list
     
+RSIList = [53.49885270867954, 55.81908920231306, 56.543628819671135, 54.91334203757303, 53.28602298570815, 50.88206217227009, 58.75574829911107, 67.08791964978705, 67.93028602435466, 75.28702830897068, 76.9579725679672, 82.36290879038326, 75.56817355864766, 69.34017533902532, 66.26009113033945, 66.92305028171671, 66.1901065326061, 72.12639096834278, 67.48430491755038, 61.09119571893404, 66.1211439315825, 64.55914192542599, 66.47582251910687, 65.01448108858648, 62.23219339963736, 60.23131566478151, 62.97975444439868, 67.11626474858487, 67.94503892701545, 69.33634520296228, 67.31662818606844, 64.29272574088958, 67.41862137031956, 66.25355570863366, 65.66153408223896, 73.16599131104705, 65.82743399746057, 63.48208639792445, 69.71217391618812, 65.89038676747833, 65.21102022978329, 60.44080824736788, 58.899785592758924, 44.79729798702304, 43.68581098953599, 46.413056115090875, 43.06240610656532, 43.21219406434934, 44.32165389969823, 42.87180298401592]
+#print(pivot_high_points(RSIList))
+#print(pivot_low_points(RSIList))
 
+data = RSIList
+lbL = 5
+lbR = 5
+
+import numpy as np
+plFound = pd.isnull(pivot_low(data))
+phFound = pd.isnull(pivot_high(data))
+
+print(plFound)
+#print(phFound)
+
+#if plFound[1]:
+    #print("Hi")
+
+def count_bars_since_condition(condition, dt):
+		count = 0
+		condition_met = False
+		for bar in dt:
+				if condition:
+						condition_met = True
+						count = 0
+				elif condition_met:
+						count += 1
+		return count
+
+data = list(plFound)
+
+
+rangeUpper = 60     # "Max of Lookback Range", defval=60)
+rangeLower = 5   
+
+
+condition = plFound[1]
+#print(count_bars_since_condition(condition, data))
+def InRange(cond, data):
+    bars = count_bars_since_condition(cond, data)
+    return rangeLower <= bars and bars <= rangeUpper
+		
+print(InRange(plFound[1], data ))
     
 
