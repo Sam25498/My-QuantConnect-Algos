@@ -96,6 +96,18 @@ print(pivot_low(Candle))
 print(pivot_high(Candle))
 #Output: [None, None, None, None, None, None, None, None, None, None, None, None, None, 82.36290879038326, None, None, None, None, None, 72.12639096834278, None, None, None, None, None, None, None, None, None, None, None, 69.33634520296228, None, None, None, None, None, 73.16599131104705, None, None, None, None, None, None, None, None, None, None, None, None]
 
+###########################################################################################################################################################################
+#############################                Next Logical Step                         #################################################################################
+
+
+import pandas as pd
+a = pivot_low(Candle)
+b = pivot_high(Candle)
+plFound = pd.isnull(a)
+phFound = pd.isnull(b)
+
+print(plFound)
+print(phFound)
 
 
 
