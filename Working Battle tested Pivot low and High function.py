@@ -112,4 +112,6 @@ print(plFound)
 print(phFound)
 #Output: [ True  True  True  True  True  True  True  True  True  True  True  True  True False  True  True  True  True  True False  True  True  True  True  True  True  True  True  True  True  True False  True  True  True  True  True False  True  True  True  True  True  True  True  True  True  True  True  True]
 
+########################################################################################################################################################################
 
+print(valuewhen(plFound, Candle, 1))
