@@ -71,6 +71,23 @@ def fill_pivot_nulls(result: List[Optional[float]]) -> List[Optional[float]]:
             null_counter += 1
     final_list = []
     is_first = True
+        for i in range(len(values)):
+        if is_first:
+            for j in range(values[i][1]):
+                final_list.append(None)
+            final_list.append(values[i][0])
+            is_first = False
+        else:
+            current = values[i]
+            previous = values[i - 1]
+            count = current[1]
+            for x in range(1, count + 1):
+                if current[0] > previous[0]:
+                    amount_to_use = (current[0] - previous[0]) / (count + 1)
+                    final_list.append(round(previous[0] + (amount_to_use * x), 8))
+                else:
+                    final_list.append(previous[0])
+    return final_list
 
     
     
