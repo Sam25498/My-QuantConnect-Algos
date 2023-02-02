@@ -47,3 +47,53 @@ log_show_msg  = input(10,   title = "# of message to show",    group = "Log")
 log_offset    = input.int(0,    title = "# of messages to offset", group = "Log", step = 1)
 
 // LOGGING FUNCTION ///
+
+var bar_arr  = array.new_int(0)
+var time_arr = array.new_string(0)
+var msg_arr  = array.new_string(0)
+var type_arr = array.new_string(0)
+
+log_msg(message, type) => 
+    array.push(bar_arr,  bar_index)
+    array.push(time_arr, str.tostring(year) + "-" + str.tostring(month) + "-" + str.tostring(dayofmonth) + " " + str.tostring(hour) + ":" + str.tostring(minute) + ":" + str.tostring(second))
+    array.push(msg_arr,  message)
+    array.push(type_arr, type)	
+
+
+hprice = 0.0
+hprice :=  not na(phs) ? phs : hprice[1]
+
+lprice = 0.0
+lprice := not na(pls) ? pls : lprice[1]
+
+plot(hprice, color = color.green, linewidth = 2)
+plot(lprice, color = color.red,   linewidth = 2)
+
+// Pivot Points Messages //
+
+if (not na(phs))
+    log_msg("New Pivot High phs: " + str.tostring(hprice), 'message')
+
+if (not na(phs) and hprice > hprice[1])
+    log_msg("New Pivot Higher High phs: " + str.tostring(hprice), 'warning')
+
+
+
+if (not na(pls))
+    log_msg("New Pivot Low pls: " + str.tostring(lprice), 'message')
+
+rt = ta.valuewhen(plFound, osc[lbR], 1)
+pt  = osc[lbR] 
+
+if (not na(pls) and lprice < lprice[1])
+    log_msg("New Pivot Lower Low pls2: " + str.tostring(lprice), 'warning')
+	log_msg("RSI Value when PL happens: " + str.tostring(rt), 'warning')
+	log_msg("PlFound: " + str.tostring(plFound), 'warning')
+	log_msg("PlFound 1: " + str.tostring(plFound[1]), 'warning')
+	log_msg("Sixth recent RSI Value: " + str.tostring(pt), 'warning')
+
+
+
+//a = ta.valuewhen(plFound, osc[lbR], 1)
+//b = int(a)
+//plot(a, color = color.green, style = plot.style_stepline_diamond) // linewidth = 2, 
