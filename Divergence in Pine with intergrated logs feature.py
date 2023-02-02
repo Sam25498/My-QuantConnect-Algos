@@ -224,3 +224,32 @@ plotshape(
 	 location=location.absolute,
 
         table.cell(log_tbl, 2, i, array.get(msg_arr, arr_i),           bgcolor = msg_color, text_size = size.small)
+	 color=bearColor,
+	 textcolor=textColor
+	 )
+
+///////////////////////////////
+// Create and fill log table //
+
+var log_tbl = table.new(position.bottom_left, 3, log_show_msg + 1, border_width = 1)
+
+if (barstate.islast and log_show)
+    
+    table.cell(log_tbl, 0, 0, "Bar #",   bgcolor = color.gray, text_size = size.small)
+    table.cell(log_tbl, 1, 0, "Time",    bgcolor = color.gray, text_size = size.small)
+    table.cell(log_tbl, 2, 0, "Message", bgcolor = color.gray, text_size = size.small)
+
+    for i = 1 to log_show_msg
+        arr_i = array.size(msg_arr) - log_show_msg + i - 1 - log_offset
+        
+        if (arr_i < 0)
+            break
+        
+        type = array.get(type_arr, arr_i)
+        
+        msg_color =  type == 'message' ? #cccccc : 
+                     type == 'warning' ? #F5AC4E : 
+                     type == 'error'   ? #DD4224 : na
+    
+        table.cell(log_tbl, 0, i, str.tostring(array.get(bar_arr, arr_i)), bgcolor = msg_color, text_size = size.small)
+        table.cell(log_tbl, 1, i, array.get(time_arr, arr_i),          bgcolor = msg_color, text_size = size.small)
