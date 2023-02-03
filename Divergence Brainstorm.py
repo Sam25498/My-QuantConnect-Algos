@@ -109,10 +109,11 @@ plFound = pd.isnull(pls)
 #phFound = pd.isnull(phs)
 print(pls)
 print(valuewhen(plFound, RSIList, 1))
+
 #Output: 80.99
 
 #[None, None, None, None, None, None, 66.67, None, None, None, None, None, None, None, None, 77.77, None, None, None, None, None, None, None, 65.4, None, None]
 #67.63
 
-
+print(valuewhen(plFound, lwlist, 1))
 
