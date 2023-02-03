@@ -1,3 +1,4 @@
+import pandas as pd
 def pivot_low(source, bars_left: int = 4, bars_right: int = 2, fill_null_values: bool = False) -> List[Optional[float]]:
         result = []
         for i in range(len(source)):
@@ -98,3 +99,4 @@ RSIList = [80.99, 80.17, 77.81, 72.55, 66.67, 68.41, 78.41, 78.41, 80.89, 80.70,
 print(len(RSIList))
 print(RSIList[0])
 print()
+
