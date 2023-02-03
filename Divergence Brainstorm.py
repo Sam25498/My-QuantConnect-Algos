@@ -1,4 +1,5 @@
 import pandas as pd
+from typing import List, Tuple, Optional
 def pivot_low(source, bars_left: int = 4, bars_right: int = 2, fill_null_values: bool = False) -> List[Optional[float]]:
         result = []
         for i in range(len(source)):
