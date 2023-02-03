@@ -101,7 +101,7 @@ print(len(RSIList))
 print(RSIList[0])
 print()
 
-pls = pivot_high(RSIList)
+pls = pivot_low(RSIList)
 #phs = 
 plFound = pd.isnull(pls)
 #phFound = pd.isnull(phs)
