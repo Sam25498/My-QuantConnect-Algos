@@ -116,4 +116,5 @@ print(valuewhen(plFound, RSIList, 1))
 #67.63
 
 print(valuewhen(plFound, lwlist, 1))
+#Output: 0.90653
 
