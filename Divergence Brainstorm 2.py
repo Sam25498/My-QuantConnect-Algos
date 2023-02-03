@@ -60,3 +60,8 @@ def second_false_values(values, occurrence):
     return index 
   
 print(second_false_values(pls, 1) #Output: 19
+
+def InRanges(values, occurrence, rangeLower = 5, rangeUpper = 60):
+    bars = second_false_values(values, occurrence)
+    return rangeLower <= bars and bars <= rangeUpper    
+print(InRanges(pls, 1)) #Output: 19      
