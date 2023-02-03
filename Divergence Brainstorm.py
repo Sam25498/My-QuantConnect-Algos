@@ -100,3 +100,8 @@ print(len(RSIList))
 print(RSIList[0])
 print()
 
+pls = 
+phs = 
+plFound = pd.isnull(pls)
+phFound = pd.isnull(phs)
+
