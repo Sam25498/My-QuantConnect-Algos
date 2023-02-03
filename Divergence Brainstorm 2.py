@@ -31,3 +31,17 @@ def second_false_values(values):
     if h != y:
       count += 1
   return count
+
+print(second_false_values(pls)) #Output: 185 Not quite Accurate
+
+def second_false_values(values):
+    lst = list(values)
+    my_lst = []
+    count = 0
+    for i in lst:
+        if i != None:
+            my_lst.append(i)
+    y = my_lst[1]
+    index = lst.index(y)
+    return index 
+  
