@@ -47,3 +47,16 @@ def second_false_values(values):
   
 print(second_false_values(pls)) #Output: 19 Closer to what i want
   
+#Alternative path way
+def second_false_values(values, occurrence):
+    lst = list(values)
+    my_lst = []
+    count = 0
+    for i in lst:
+        if i != None:
+            my_lst.append(i)
+    y = my_lst[occurrence]
+    index = lst.index(y)
+    return index 
+  
+print(second_false_values(pls, 1) #Output: 19
