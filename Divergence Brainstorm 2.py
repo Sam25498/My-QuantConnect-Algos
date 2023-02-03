@@ -45,3 +45,5 @@ def second_false_values(values):
     index = lst.index(y)
     return index 
   
+print(second_false_values(pls)) #Output: 19 Closer to what i want
+  
