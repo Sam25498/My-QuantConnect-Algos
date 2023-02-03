@@ -105,4 +105,6 @@ pls = pivot_low(RSIList)
 #phs = 
 plFound = pd.isnull(pls)
 #phFound = pd.isnull(phs)
+print(pls)
+print(valuewhen(plFound, RSIList, 1))
 
